@@ -1,0 +1,30 @@
+<div aling="center" class="card border-primary mb-3">
+    <div class="card-header">Clientes</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Listado de clientes</h5>
+        <div *ngIf="clientes?.length==0" class="alert alert-info">
+            No hay registros en la base de datos
+        </div>
+        <table class="table table-bordered table-striped" *ngIf="clientes?.length>0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>nombre</th>
+                    <th>apellido</th>
+                    <th>email</th>
+                    <th>fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let cliente of clientes">
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.nombre }}</td>
+                    <td>{{ cliente.apellido | uppercase }}</td>
+                    <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.createdat | date: "dd/MM/yyyy" }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
