@@ -13,14 +13,20 @@ import localeEs from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteService } from './clientes/cliente.service';
+import { GruposComponent } from './grupos/grupos.component';
+import { GruposService } from './grupos/grupos.service';
+
+
 
 
 
 registerLocaleData(localeEs, 'es');
 
 const routes: Routes = [
-  { path: '', redirectTo: '/clientes', pathMatch: 'full' },
-  { path: 'clientes', component: ClientesComponent }
+  { path: '', redirectTo: '/grupos', pathMatch: 'full' },
+  { path: 'clientes', component: ClientesComponent },
+  { path: 'grupos', component: GruposComponent }
+
 ];
 
 
@@ -31,7 +37,8 @@ const routes: Routes = [
     HeaderComponent,
     IconoVaderComponent,
     EjemploComponent,
-    ClientesComponent
+    ClientesComponent,
+    GruposComponent
 
     
   ],
@@ -41,7 +48,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [ClienteService, { provide: LOCALE_ID, useValue: 'es' }],
+  providers: [ClienteService, { provide: LOCALE_ID, useValue: 'es' }, GruposService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -22,28 +22,9 @@
   <p>Turnos disponibles:</p>
 
 
-  <div class="card-container">
-    <a class="card" href="#" routerLink="/ejemplo">
- 
-      <span>Otra opcion</span>
-
-      <svg class="material-icons" xmlns="" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>  
-    </a>
+  <div class="card-container" routerLink="/grupos">
     
-    <a class="card" href="#" routerLink="/clientes">
-
-      <span>Turno elegido</span>
-
-      <svg class="material-icons" xmlns="" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" href="#" routerLink="/icono-vader">
-
-      <span>Otra opcion</span>
-
-      <svg class="material-icons" xmlns="" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-
-    </a>
+    <router-outlet> </router-outlet>
 
   </div>
 
@@ -51,7 +32,7 @@
 
 
 </div>
-<router-outlet> </router-outlet>
+
 <!-- Footer -->
   <footer>
     <p class="fondo"><img src="../assets/logo_fondo.jpg" Align="right"></p>

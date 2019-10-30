@@ -1,0 +1,30 @@
+<div aling="center" class="card border-primary mb-6 text-center">
+    <div class="card-header">Grupos</div>
+    <div class="card-body text-primary">
+        <h5 class="card-title">Listado de Grupos</h5>
+        <div *ngIf="Grupos?.length==0" class="alert alert-info">
+            No hay registros en la base de datos
+        </div>
+
+        <table class="table table-bordered table-striped" *ngIf="Grupos?.length>0">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>huecos</th>
+                    <th>nombre</th>
+                    <th>ultima_modificacion</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let grupo of Grupos">
+                    <td>{{ grupo.id }}</td>
+                    <td>{{ grupo.huecos }}</td>
+                    <td>{{ grupo.nombre }}</td>
+                    <td>{{ grupo.ultima_modificacion }}</td>
+                    <td> <button class="btn btn-primary" sng-model="button" ng-disabled="checked">Apuntarme</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

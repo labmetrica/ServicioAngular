@@ -1,10 +1,10 @@
-import { Cliente } from './cliente';
+import { Grupo } from './grupos';
 
-export const CLIENTES: Cliente[] = [
+export const GRUPOS: Grupo[] = [
   /*
   {
     id: 1,
-    activo: 'true', 
+    activo: true, 
     nombre: 'Manolo',
     apellido: 'Vega',
     email: 'vega@msn.com',
