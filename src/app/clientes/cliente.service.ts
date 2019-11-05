@@ -12,7 +12,7 @@ import { formatDate, DatePipe } from '@angular/common';
 @Injectable()
 export class ClienteService {
 
-  private urlEndPoint = 'http://localhost:8081/clientes/lista-clientes';
+  private urlEndPoint = 'http://localhost:8083/clientes';
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -26,7 +26,7 @@ export class ClienteService {
 
     // Llamada usando un pipe que transforme la respuesta
     // La variable nombre se pasa a mayúsculas
-    return this.http.get(this.urlEndPoint).pipe(
+    return this.http.get(`${this.urlEndPoint}/lista-clientes`).pipe(
       map(response => {
         let clientes = response as Cliente[];
         return clientes.map(cliente => {
@@ -41,7 +41,7 @@ export class ClienteService {
   // El post no devuelve nada por defecto ....post(this...
   create(cliente: Cliente): Observable<Cliente> {
     return this.http
-      .post(this.urlEndPoint, cliente, {
+      .post(`${this.urlEndPoint}/guardarUsuario`, cliente, {
         headers: this.httpHeaders
       })
       .pipe(
@@ -63,7 +63,7 @@ export class ClienteService {
   // El put devuelve any por defecto ....put<any>(this...
   update(cliente: Cliente): Observable<any> {
     return this.http
-      .put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente, {
+      .put<any>(`${this.urlEndPoint}/buscarPorID/${cliente.id}`, cliente, {
         headers: this.httpHeaders
       })
       .pipe(
@@ -81,7 +81,7 @@ export class ClienteService {
   }
 
   getCliente(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
+    return this.http.get<Cliente>(`${this.urlEndPoint}/buscarPorID/${id}`).pipe(
       // Se captura un error en el pipe
       catchError(e => {
         // Redireccion a clientes
@@ -95,7 +95,7 @@ export class ClienteService {
 
   delete(id: number): Observable<Cliente> {
     return this.http
-      .delete<Cliente>(`${this.urlEndPoint}/${id}`, {
+      .delete<Cliente>(`${this.urlEndPoint}/borrarUsuario/${id}`, {
         headers: this.httpHeaders
       })
       .pipe(

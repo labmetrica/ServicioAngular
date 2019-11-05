@@ -296,3 +296,9 @@
     opacity: 0.5;
   }
 
+  .btn-group {
+    position: absolute;
+    right: 2%;
+  }
+
+

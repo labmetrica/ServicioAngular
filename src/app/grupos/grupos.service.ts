@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class GruposService {
 
-  private urlEndPoint = 'http://localhost:8083/grupo/mostrar';
+  private urlEndPoint = 'http://localhost:8081/grupo/mostrar';
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 

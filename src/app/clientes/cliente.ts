@@ -1,12 +1,13 @@
 export class Cliente {
   id: number;
-  acivo: string;
+  activo: string;
   nombre: string;
   apellido: string;
   email: string;
-  createdat: string;
+  createdat: number;
   grupo: number;
-  ultima_modificacion: string;
+  ultima_modificacion: number;
+  tipo: string;
 
 
 }
