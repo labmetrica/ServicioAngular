@@ -291,7 +291,7 @@
 
 .fondo {
     position: absolute; 
-            bottom:0%; 
+            top: 50%; 
             left: 85%; 
     opacity: 0.5;
   }

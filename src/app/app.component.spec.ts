@@ -15,9 +15,9 @@ describe('AppComponent', () => {
   }));
 
   const routes: Routes = [
-    { path: 'ejemplo', component: EjemploComponent }
+    { path: 'ejemplo', component: SubheaderComponent }
   ];
 });import { from } from 'rxjs';
-import { EjemploComponent } from './ejemplo/ejemplo.component';
 import { Routes } from '@angular/router';
+import { SubheaderComponent } from './subheader/SubheaderComponent';
 

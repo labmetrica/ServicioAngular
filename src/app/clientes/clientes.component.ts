@@ -22,4 +22,34 @@ export class ClientesComponent implements OnInit {
       .getClientes()
       .subscribe(clientesObsv => (this.clientes = clientesObsv));
   }
+
+  delete(cliente: Cliente): void {
+    swal
+      .fire({
+        title: '¿Está seguro?',
+        text: `¿Seguro que desea eliminar al cliente ${cliente.nombre} ${cliente.apellido}?`,
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        reverseButtons: true
+      })
+      .then(result => {
+        if (result.value) {
+          this.clienteService.delete(cliente.id).subscribe(response => {
+            this.clientes = this.clientes.filter(cli => cli !== cliente);
+            swal.fire(
+              'Cliente Eliminado!',
+              `Cliente ${cliente.nombre} eliminado con éxito.`,
+              'success'
+            );
+          });
+        }
+      });
+  }
 }

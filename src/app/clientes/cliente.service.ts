@@ -9,12 +9,8 @@ import { Router } from '@angular/router';
 import { ClientesComponent } from './clientes.component.js';
 import { formatDate, DatePipe } from '@angular/common';
 
-import { environment } from '../../environments/environment';
-
 @Injectable()
 export class ClienteService {
-
-  //private urlEndPoint = 'http://localhost:8080/api/clientes';
 
   private urlEndPoint = 'http://localhost:8081/clientes/lista-clientes';
 
@@ -39,5 +35,76 @@ export class ClienteService {
         });
       })
     );
+  }
+
+  // Método 1: Se recupera desde el subscribe como map transformado a Cliente.
+  // El post no devuelve nada por defecto ....post(this...
+  create(cliente: Cliente): Observable<Cliente> {
+    return this.http
+      .post(this.urlEndPoint, cliente, {
+        headers: this.httpHeaders
+      })
+      .pipe(
+        map((response: any) => response.cliente as Cliente),
+        // Se captura un error en el pipe
+        catchError(e => {
+          if (e.status == 400) {
+            return throwError(e);
+          }
+
+          console.log(e.error.message);
+          swal.fire(e.error.message, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
+  }
+
+ // Método 2: Se recupera desde el subscribe con el json completo. Subscribe trabaja con any.
+  // El put devuelve any por defecto ....put<any>(this...
+  update(cliente: Cliente): Observable<any> {
+    return this.http
+      .put<any>(`${this.urlEndPoint}/${cliente.id}`, cliente, {
+        headers: this.httpHeaders
+      })
+      .pipe(
+        // Se captura un error en el pipe
+        catchError(e => {
+          if (e.status == 400) {
+            return throwError(e);
+          }
+
+          console.log(e.error.message);
+          swal.fire(e.error.message, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
+  }
+
+  getCliente(id: number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.urlEndPoint}/${id}`).pipe(
+      // Se captura un error en el pipe
+      catchError(e => {
+        // Redireccion a clientes
+        this.router.navigate(['/clientes']);
+        console.log(e.error.message);
+        swal.fire('Error al editar', e.error.message, 'error');
+        return throwError(e);
+      })
+    );
+  }
+
+  delete(id: number): Observable<Cliente> {
+    return this.http
+      .delete<Cliente>(`${this.urlEndPoint}/${id}`, {
+        headers: this.httpHeaders
+      })
+      .pipe(
+        // Se captura un error en el pipe
+        catchError(e => {
+          console.log(e.error.message);
+          swal.fire(e.error.message, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
   }
 }

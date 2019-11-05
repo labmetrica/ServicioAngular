@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EjemploComponent } from './ejemplo/ejemplo.component';
 import { IconoVaderComponent } from './componentes/icono-vader/icono-vader.component';
 import { ClientesComponent } from './clientes/clientes.component';
+import { SubheaderComponent } from './subheader/SubheaderComponent';
 
 
 const routes: Routes = [
-{path: 'ejemplo', component: EjemploComponent},
+{path: 'subheader', component: SubheaderComponent},
 {path: 'icono-vader', component: IconoVaderComponent},
 { path: 'clientes', component: ClientesComponent }
+
 ];
 
 @NgModule({
