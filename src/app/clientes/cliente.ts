@@ -4,11 +4,7 @@ export class Cliente {
   nombre: string;
   apellido: string;
   email: string;
-  createdat: number;
   grupo: number;
-  ultima_modificacion: number;
   tipo: string;
-
-
 }
 

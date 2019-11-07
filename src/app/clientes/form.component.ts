@@ -3,6 +3,8 @@ import { Cliente } from './cliente';
 import { ClienteService } from './cliente.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
+import { NgIf } from '@angular/common';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-form',
@@ -10,8 +12,6 @@ import swal from 'sweetalert2';
 })
 export class FormComponent implements OnInit {
   public cliente: Cliente = new Cliente();
-  public tituloForm = 'Crear cliente';
-
   public errores: string[];
 
   constructor(
@@ -39,11 +39,9 @@ export class FormComponent implements OnInit {
   create(): void {
     this.clienteService.create(this.cliente).subscribe(
       cliente => {
-        this.router.navigate(['/clientes/guardarUsuario']);
+        this.router.navigate(['/clientes']);
         swal.fire(
-          'Nuevo cliente',
-          `El cliente: ${cliente.nombre} ha sido creado con éxito`,
-          'success'
+          'El usuario ha sido creado con éxito'
         );
       },
       err => {
@@ -58,11 +56,9 @@ export class FormComponent implements OnInit {
   update(): void {
     this.clienteService.update(this.cliente).subscribe(
       json => {
-        this.router.navigate(['/clientes/actulizarUsuario']);
+        this.router.navigate(['/clientes']);
         swal.fire(
-          'Cliente Actualizado',
-          `${json.message}: ${json.cliente.nombre}`,
-          'success'
+          'El usuario ha sido editado'
         );
       },
       err => {

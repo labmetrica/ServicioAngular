@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class GruposService {
 
-  private urlEndPoint = 'http://localhost:8081/grupo/mostrar';
+  private urlEndPoint = 'http://localhost:8083/grupos';
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -28,7 +28,7 @@ export class GruposService {
 
     // Llamada usando un pipe que transforme la respuesta
     // La variable nombre se pasa a mayúsculas
-    return this.http.get(this.urlEndPoint).pipe(
+    return this.http.get(`${this.urlEndPoint}/lista_grupos`).pipe(
       map(response => {
         let grupos = response as Grupo[];
               return grupos;

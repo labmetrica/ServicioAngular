@@ -12,7 +12,7 @@ import { formatDate, DatePipe } from '@angular/common';
 @Injectable()
 export class ClienteService {
 
-  private urlEndPoint = 'http://localhost:8083/clientes';
+  private urlEndPoint = 'http://localhost:8081/clientes';
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
@@ -63,7 +63,7 @@ export class ClienteService {
   // El put devuelve any por defecto ....put<any>(this...
   update(cliente: Cliente): Observable<any> {
     return this.http
-      .put<any>(`${this.urlEndPoint}/buscarPorID/${cliente.id}`, cliente, {
+      .put<any>(`${this.urlEndPoint}/actulizarUsuario`, cliente, {
         headers: this.httpHeaders
       })
       .pipe(

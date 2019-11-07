@@ -5,29 +5,13 @@
 </ul>
 
 <div class="card bg-dark text-white">
-    <div class="card-header">{{ tituloForm }}</div>
+    <div class="card-header" *ngIf="!cliente.id">Crear Usuario </div>
+    <div class="card-header" *ngIf="cliente.id">Editar Usuario </div>
+
     <div class="card-body">
 
         <form #clienteForm="ngForm">
 
-                <div class="form-group row">
-                        <label for="id" class="col-form-label col-sm-2">ID</label>
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" [(ngModel)]="cliente.id" name="id" 
-                                #nombre="ngModel">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                            <label for="activo" class="col-form-label col-sm-2">Activo</label>
-                            <div class="col-sm-6">
-                                <select type="text" class="form-control" [(ngModel)]="cliente.activo" name="activo" 
-                                   #nombre="ngModel">
-                                        <option value="true" selected>True</option>
-                                        <option value="flase">False</option>
-                                    </select>
-                            </div>
-                        </div>
 
             <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
@@ -74,39 +58,15 @@
             </div>
 
             <div class="form-group row">
-                    <label for="grupo" class="col-form-label col-sm-2">Grupo</label>
+                    <label for="tipo" class="col-form-label col-sm-2">Tipo</label>
                     <div class="col-sm-6">
-                        <input type="text" class="form-control" [(ngModel)]="cliente.grupo" name="grupo" 
+                            <select type="text" class="form-control" [(ngModel)]="cliente.tipo" name="tipo" 
                             #nombre="ngModel">
+                                    <option value="Empleado" selected>Empleado</option>
+                                    <option value="LAB">LAB</option>
+                            </select>
                     </div>
                 </div>
-
-                <div class="form-group row">
-                        <label for="tipo" class="col-form-label col-sm-2">Tipo</label>
-                        <div class="col-sm-6">
-                                <select type="text" class="form-control" [(ngModel)]="cliente.tipo" name="tipo" 
-                                #nombre="ngModel">
-                                        <option value="Empleado" selected>Empleado</option>
-                                        <option value="LAB">LAB</option>
-                                </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                            <label for="grupo" class="col-form-label col-sm-2">CreatedAt</label>
-                            <div class="col-sm-6">
-                                <input type="text" class="form-control" [(ngModel)]="cliente.createdat" name="createdat" 
-                                    #nombre="ngModel">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                                <label for="grupo" class="col-form-label col-sm-2">Ultima Modificacion</label>
-                                <div class="col-sm-6">
-                                    <input type="text" class="form-control" [(ngModel)]="cliente.ultima_modificacion" name="ultima_modificacion" 
-                                        #nombre="ngModel">
-                                </div>
-                            </div>
 
             <div class="form-group row">
                 <div class="col-sm-6">
