@@ -27,7 +27,7 @@ export class ClientesComponent implements OnInit {
     swal
       .fire({
         title: '¿Está seguro?',
-        text: `¿Seguro que desea eliminar al cliente ${cliente.nombre} ${cliente.apellido}?`,
+        text: `¿Seguro que desea eliminar al usuario ${cliente.nombre} ${cliente.apellido}?`,
         type: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -44,8 +44,8 @@ export class ClientesComponent implements OnInit {
           this.clienteService.delete(cliente.id).subscribe(response => {
             this.clientes = this.clientes.filter(cli => cli !== cliente);
             swal.fire(
-              'Cliente Eliminado!',
-              `Cliente ${cliente.nombre} eliminado con éxito.`,
+              'Usuario Eliminado!',
+              `Usuario ${cliente.nombre} eliminado con éxito.`,
               'success'
             );
           });

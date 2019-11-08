@@ -15,8 +15,10 @@ import { GruposComponent } from './grupos/grupos.component';
 import { GruposService } from './grupos/grupos.service';
 
 import { FormComponent } from './clientes/form.component';
+import { Form1Component } from './grupos/form1.component';
 import { FormsModule } from '@angular/forms';
 import { SubheaderComponent } from './subheader/SubheaderComponent';
+import { LoginComponent } from './login/login.component';
 
 
 
@@ -29,7 +31,10 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent },
   { path: 'grupos', component: GruposComponent },
   { path: 'clientes/form', component: FormComponent },
-  { path: 'clientes/form/:id', component: FormComponent }
+  { path: 'clientes/form/:id', component: FormComponent },
+  { path: 'grupos/form1', component: Form1Component },
+  { path: 'grupos/form1/:id', component: Form1Component },
+  { path: 'login', component: LoginComponent}
 
 ];
 
@@ -43,7 +48,9 @@ const routes: Routes = [
     SubheaderComponent,
     ClientesComponent,
     GruposComponent,
-    FormComponent
+    FormComponent,
+    Form1Component,
+    LoginComponent
 
     
   ],
