@@ -21,13 +21,6 @@ export class GruposService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getGrupos(): Observable<Grupo[]> {
-    // Llamada anterior en duro.
-    // Puede ser útil para hacer mocks
-    // antes de tener el servicio real
-    // return of(CLIENTES);
-
-    // Llamada usando un pipe que transforme la respuesta
-    // La variable nombre se pasa a mayúsculas
     return this.http.get(`${this.urlEndPoint}/lista_grupos`).pipe(
       map(response => {
         let grupos = response as Grupo[];
@@ -43,7 +36,6 @@ export class GruposService {
       })
       .pipe(
         map((response: any) => response.grupos as Grupo),
-        // Se captura un error en el pipe
         catchError(e => {
           if (e.status == 400) {
             return throwError(e);
@@ -62,7 +54,6 @@ export class GruposService {
         headers: this.httpHeaders
       })
       .pipe(
-        // Se captura un error en el pipe
         catchError(e => {
           if (e.status == 400) {
             return throwError(e);
@@ -77,9 +68,7 @@ export class GruposService {
 
   getGrupo(id: number): Observable<Grupo> {
     return this.http.get<Grupo>(`${this.urlEndPoint}/grupo/${id}`).pipe(
-      // Se captura un error en el pipe
       catchError(e => {
-        // Redireccion a clientes
         this.router.navigate(['/grupos']);
         console.log(e.error.message);
         swal.fire('Error al editar', e.error.message, 'error');
@@ -94,7 +83,6 @@ export class GruposService {
         headers: this.httpHeaders
       })
       .pipe(
-        // Se captura un error en el pipe
         catchError(e => {
           console.log(e.error.message);
           swal.fire(e.error.message, e.error.error, 'error');

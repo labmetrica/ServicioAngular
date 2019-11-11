@@ -35,7 +35,6 @@ export class FormComponent implements OnInit {
     });
   }
 
-  // Método 1: Se recupera desde el subscribe como map transformado a Cliente.
   create(): void {
     this.clienteService.create(this.cliente).subscribe(
       cliente => {
@@ -52,7 +51,6 @@ export class FormComponent implements OnInit {
     );
   }
 
-  // Método 2: Se recupera desde el subscribe con el json completo. Subscribe trabaja con any.
   update(): void {
     this.clienteService.update(this.cliente).subscribe(
       json => {
