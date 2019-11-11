@@ -21,7 +21,7 @@ export class GruposService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getGrupos(): Observable<Grupo[]> {
-    return this.http.get(`${this.urlEndPoint}/lista_grupos`).pipe(
+    return this.http.get(`${this.urlEndPoint}/lista-grupos`).pipe(
       map(response => {
         let grupos = response as Grupo[];
               return grupos;

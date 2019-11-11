@@ -14,6 +14,7 @@
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
+                    <th>Tipo</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                     
@@ -25,6 +26,7 @@
                     <td>{{ cliente.nombre }}</td>
                     <td>{{ cliente.apellido | uppercase }}</td>
                     <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.tipo }}</td>
                     <td>
                         <button type="button" name="editar" [routerLink]="['/clientes/form', cliente.id]"
                             class="btn btn-primary btn-sm">Editar</button>
