@@ -50,7 +50,7 @@ export class GruposService {
 
   update(grupos: Grupo): Observable<any> {
     return this.http
-      .put<any>(`${this.urlEndPoint}/actulizar/${grupos.id}`, grupos, {
+      .put<any>(`${this.urlEndPoint}/actualizarGrupo`, grupos, {
         headers: this.httpHeaders
       })
       .pipe(
@@ -67,7 +67,7 @@ export class GruposService {
   }
 
   getGrupo(id: number): Observable<Grupo> {
-    return this.http.get<Grupo>(`${this.urlEndPoint}/grupo/${id}`).pipe(
+    return this.http.get<Grupo>(`${this.urlEndPoint}/buscarPorID/${id}`).pipe(
       catchError(e => {
         this.router.navigate(['/grupos']);
         console.log(e.error.message);

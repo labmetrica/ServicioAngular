@@ -25,31 +25,24 @@
                 <tr *ngFor="let grupo of Grupos">
                     <td>
                         <div class="progress" style="height: 25px; font-size: 15px; color: white;">
-                        <!--<div *ngIf="grupo.huecos >= 10" class="w3-container w3-center w3-round-large w3-green " style="width:100%" color="green">{{ grupo.huecos }}</div>
-                        <div *ngIf="grupo.huecos > 6 && grupo.huecos <=9" class="w3-container w3-center w3-round-large w3-green" style="width:70%" color="green">{{ grupo.huecos }}</div>
-                        <div *ngIf="grupo.huecos <= 6 && grupo.huecos >= 1" class="w3-container w3-center w3-round-large w3-yellow" style="width:45%">{{ grupo.huecos }}</div>
-                        <div *ngIf="grupo.huecos <= 0"  class="w3-container w3-center w3-round-xlarge w3-red" style="width:0%">{{ grupo.huecos }}</div>
-                        -->
                         <div *ngIf="grupo.huecos >= 10" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ grupo.huecos }}</div> 
                         <div *ngIf="grupo.huecos > 6 && grupo.huecos <=9" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 70%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ grupo.huecos }}</div> 
                         <div *ngIf="grupo.huecos <= 6 && grupo.huecos >= 1" class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 45%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ grupo.huecos }}</div> 
                         <div *ngIf="grupo.huecos <= 0" class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 10%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ grupo.huecos }}</div> 
                     </div>
-                        <p> sitios libres de 12 sitios</p>
+                        <p> sitios libres de 12 en total </p>
                     </td>
                     <td>{{ grupo.nombre }}</td>
                     <td> LISTA DE USER </td>
                     <td> 
                         <button *ngIf="grupo.huecos >= 1" class="btn btn-success" sng-model="button" >Apuntarme</button>
                         <button *ngIf="grupo.huecos == 0" class="btn btn-danger" sng-model="button" disabled>&nbsp;&nbsp;&nbsp; Lleno &nbsp;&nbsp;&nbsp;</button>
-                        <!--<button *ngIf="grupo.huecos <= 6 && grupo.huecos >= 1" class="btn btn-warning" sng-model="button" ng-disabled="checked" style="color:white;">Apuntarme</button>
-                        -->
-                        </td>
+                    </td>
                     <td>
 
-                        <!--<button type="button" name="editar" [routerLink]="['/grupos/form1', grupo.id]"
+                        <button type="button" name="editar" [routerLink]="['/grupos/form1', grupo.id]"
                             class="btn btn-primary btn-sm">Editar</button>
-                        -->
+                        
                         <button type="button" name="eliminar" (click)='delete(grupo)'
                             class="btn btn-danger btn-sm">Eliminar</button>
                     </td>

@@ -51,7 +51,7 @@ export class ClienteService {
 
   update(cliente: Cliente): Observable<any> {
     return this.http
-      .put<any>(`${this.urlEndPoint}/actulizarUsuario`, cliente, {
+      .put<any>(`${this.urlEndPoint}/actualizarUsuario`, cliente, {
         headers: this.httpHeaders
       })
       .pipe(
