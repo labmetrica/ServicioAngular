@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from './grupos2';
+import { User } from './user';
 import { Grupos2Service } from './grupos2.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
@@ -35,24 +35,8 @@ export class Form3Component implements OnInit {
     });
   }
 
-  create(): void {
-    this.clienteService.create(this.cliente).subscribe(
-      cliente => {
-        this.router.navigate(['/clientes']);
-        swal.fire(
-          'El usuario ha sido creado con éxito'
-        );
-      },
-      err => {
-        this.errores = err.error.errors as string[];
-        console.error('Código error backend: ' + err.status);
-        console.error(err.error.errors);
-      }
-    );
-  }
-
   update(): void {
-    this.grupos2service.update(this.User).subscribe(
+    this.grupos2service.updateUser(this.User).subscribe(
       json => {
         this.router.navigate(['/grupos2']);
         swal.fire(

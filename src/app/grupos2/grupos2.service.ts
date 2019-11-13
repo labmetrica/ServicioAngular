@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GRUPOS } from './grupos2.json';
-import { Grupo, User } from './grupos2';
+import { Grupo } from './grupos2';
+import { User } from './user';
 import { of, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
@@ -77,7 +78,7 @@ export class Grupos2Service {
     );
   }
 
-  delete(user: User): Observable<any> {
+  updateUser(user: User): Observable<any> {
     swal.fire(`${user.grupo} service`)
     return this.http
       .put<any>(`${this.urlEndPoint}/actualizarUsuario`, user, {

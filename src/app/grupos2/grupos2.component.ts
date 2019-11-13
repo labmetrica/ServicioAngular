@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Grupo, User } from './grupos2';
+import { Grupo } from './grupos2';
+import { User } from './user';
 import { Grupos2Service } from './grupos2.service';
 import swal from 'sweetalert2';
 import { GroupedObservable } from 'rxjs';
@@ -22,7 +23,7 @@ export class Grupos2Component implements OnInit {
       .subscribe(gruposObsv => (this.Grupos = gruposObsv));
   }
 
-  delete(user: User): void {
+  updateUser(user: User): void {
     swal
       .fire({
         title: '¿Está seguro?',
@@ -42,7 +43,7 @@ export class Grupos2Component implements OnInit {
         user[user.grupo]==0;
         swal.fire(`${user.grupo} component`)
         if (result.value) {
-          this.gruposService.delete(user).subscribe(response => {
+          this.gruposService.updateUser(user).subscribe(response => {
             this.user = this.user.filter(cli => cli !== user);
             swal.fire(
               'Usuario Eliminado!',
