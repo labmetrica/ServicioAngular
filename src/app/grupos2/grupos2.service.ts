@@ -95,4 +95,15 @@ export class Grupos2Service {
         })
       );
   }
+
+  getCliente(id: number): Observable<User> {
+    return this.http.get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`).pipe(
+      catchError(e => {
+        this.router.navigate(['/grupo2']);
+        console.log(e.error.message);
+        swal.fire('Error al editar', e.error.message, 'error');
+        return throwError(e);
+      })
+    );
+  }
 }
