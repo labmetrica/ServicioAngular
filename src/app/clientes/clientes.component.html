@@ -1,21 +1,23 @@
-<div aling="center" class="text-center">
+<div aling="right" class="text-center">
     <div class="card-body text-primary">
         <h5 class="card-title">Listado de usuarios</h5>
         <div *ngIf="clientes?.length==0" class="alert alert-info">
             No hay registros en la base de datos
         </div>
-        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clientes/form']">
-            Crear Cliente
-        </button>
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clientes/form']"> Crear Usuario </button>
         <table class="table table-striped" *ngIf="clientes?.length>0">
             <thead>
+                <tr>
+                </tr>
                 <tr>
                     <th>Id</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
                     <th>Email</th>
+                    <th>Tipo</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -24,6 +26,7 @@
                     <td>{{ cliente.nombre }}</td>
                     <td>{{ cliente.apellido | uppercase }}</td>
                     <td>{{ cliente.email }}</td>
+                    <td>{{ cliente.tipo }}</td>
                     <td>
                         <button type="button" name="editar" [routerLink]="['/clientes/form', cliente.id]"
                             class="btn btn-primary btn-sm">Editar</button>

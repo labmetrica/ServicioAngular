@@ -44,7 +44,11 @@
                     </td>
                     <td>{{ grupo.nombre }}</td>
                     <td> LISTA DE USER </td>
-
+                    <td>
+                        <button *ngIf="grupo.huecos >= 1" class="btn btn-success" sng-model="button">Apuntarme</button>
+                        <button *ngIf="grupo.huecos == 0" class="btn btn-danger" sng-model="button"
+                            disabled>&nbsp;&nbsp;&nbsp; Lleno &nbsp;&nbsp;&nbsp;</button>
+                    </td>
                     <td>
 
                         <button type="button" name="editar" [routerLink]="['/grupos/form1', grupo.id]"

@@ -1,46 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { Cliente } from './cliente';
-import { ClienteService } from './cliente.service';
+import { Grupo } from './grupos';
+import { GruposService } from './grupos.service';
+import { GroupedObservable } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
 import { NgIf } from '@angular/common';
 import { stringify } from 'querystring';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html'
+  selector: 'app-form1',
+  templateUrl: './form1.component.html'
 })
-export class FormComponent implements OnInit {
-  public cliente: Cliente = new Cliente();
+export class Form1Component implements OnInit {
+  public grupo: Grupo = new Grupo();
   public errores: string[];
 
   constructor(
-    private clienteService: ClienteService,
+    private gruposService: GruposService,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.cargarCliente();
+    this.getGrup();
   }
 
-  cargarCliente(): void {
+  getGrup(): void {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
       if (id) {
-        this.clienteService
-          .getCliente(id)
-          .subscribe(cliente => (this.cliente = cliente));
+        this.gruposService
+          .getGrupo(id)
+          .subscribe(grupo => (this.grupo = grupo));
       }
     });
   }
 
   create(): void {
-    this.clienteService.create(this.cliente).subscribe(
-      cliente => {
-        this.router.navigate(['/clientes']);
+    this.gruposService.create(this.grupo).subscribe(
+      grupo => {
+        this.router.navigate(['/grupos']);
         swal.fire(
-          'El usuario ha sido creado con éxito'
+          'El grupo ha sido creado con éxito'
         );
       },
       err => {
@@ -52,11 +53,11 @@ export class FormComponent implements OnInit {
   }
 
   update(): void {
-    this.clienteService.update(this.cliente).subscribe(
+    this.gruposService.update(this.grupo).subscribe(
       json => {
-        this.router.navigate(['/clientes']);
+        this.router.navigate(['/grupos']);
         swal.fire(
-          'El usuario ha sido editado'
+          'El grupo ha sido editado'
         );
       },
       err => {

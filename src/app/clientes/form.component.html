@@ -3,7 +3,7 @@
         {{err}}
     </li>
 </ul>
-
+<p> </p>
 <div class="card bg-dark text-white">
     <div class="card-header" *ngIf="!cliente.id">Crear Usuario </div>
     <div class="card-header" *ngIf="cliente.id">Editar Usuario </div>
@@ -17,12 +17,12 @@
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required
-                        #nombre="ngModel"> <!-- minlenght = 4 : Control de tamaño de campos desde servidor -->
+                        #nombre="ngModel" minlength="3">
 
                     <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
                         <div *ngIf="nombre.errors.required"> El nombre es obligatorio</div>
 
-                        <div *ngIf="nombre.errors.minlength"> El nombre debe tener al menos 4 caracteres</div>
+                        <div *ngIf="nombre.errors.minlength"> El nombre debe tener al menos 3 caracteres</div>
                     </div>
 
                 </div>
