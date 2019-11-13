@@ -15,7 +15,7 @@
             <div class="form-group row">
                 <label for="huecos" class="col-form-label col-sm-2">Huecos</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" [(ngModel)]="grupo.huecos" name="huecos" 
+                    <input type="number" class="form-control" [(ngModel)]="grupo.huecos" name="huecos" required
                         #huecos="ngModel">
 
                     <div class="alert alert-danger" *ngIf="huecos.invalid">
@@ -43,15 +43,15 @@
                 <div class="col-sm-6">
 
                     <button class="btn btn-primary m-2" role="button" (click)='create()'
-                        *ngIf="!grupo.id else elseBlock" [disabled]="!grupoForm.form.valid">
+                        *ngIf="!grupo.id else elseBlock" [disabled]="!grupo2Form2.form.valid">
                         Crear </button>
 
                     <ng-template #elseBlock>
                         <button class="btn btn-primary m-2" role="button" (click)='update()'
-                            [disabled]="!grupoForm.form.valid"> Editar </button>
+                            [disabled]="!grupo2Form2.form.valid"> Editar </button>
                     </ng-template>
 
-                    <button class="btn btn-outline-light m-2" role="button" routerLink="/grupos">
+                    <button class="btn btn-outline-light m-2" role="button" routerLink="/grupos2">
                         Volver </button>
 
                 </div>

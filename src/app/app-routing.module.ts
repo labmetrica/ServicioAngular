@@ -4,13 +4,15 @@ import { IconoVaderComponent } from './componentes/icono-vader/icono-vader.compo
 import { ClientesComponent } from './clientes/clientes.component';
 import { SubheaderComponent } from './subheader/SubheaderComponent';
 import { LoginComponent } from './login/login.component';
+import { GruposallComponent } from './gruposall/gruposall.component';
 
 
 const routes: Routes = [
 {path: 'subheader', component: SubheaderComponent},
 {path: 'icono-vader', component: IconoVaderComponent},
 { path: 'clientes', component: ClientesComponent },
-{ path: 'login',component: LoginComponent}
+{ path: 'login',component: LoginComponent},
+{ path: 'gruposall',component: GruposallComponent}
 
 ];
 
