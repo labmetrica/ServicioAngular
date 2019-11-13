@@ -11,7 +11,7 @@ import { stringify } from 'querystring';
   templateUrl: './form3.component.html'
 })
 export class Form3Component implements OnInit {
-  public User: Cliente = new Cliente();
+  public User: User = new User();
   public errores: string[];
 
   constructor(
@@ -28,9 +28,9 @@ export class Form3Component implements OnInit {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
       if (id) {
-        this.clienteService
+        this.grupos2service
           .getCliente(id)
-          .subscribe(cliente => (this.cliente = cliente));
+          .subscribe(User => (this.User = User));
       }
     });
   }
@@ -52,9 +52,9 @@ export class Form3Component implements OnInit {
   }
 
   update(): void {
-    this.clienteService.update(this.cliente).subscribe(
+    this.grupos2service.update(this.User).subscribe(
       json => {
-        this.router.navigate(['/clientes']);
+        this.router.navigate(['/grupos2']);
         swal.fire(
           'El usuario ha sido editado'
         );
