@@ -18,6 +18,10 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
+  redireccion() {
+    this.router.navigate(['./grupos2/grupos2']);
+  }
+
   login(username:string, password:string) {
     return this.http.post('https://reqres.in/api/login', {
       email: username,
