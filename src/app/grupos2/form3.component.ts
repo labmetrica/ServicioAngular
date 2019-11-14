@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from './user';
+import { Grupo } from './grupos2';
 import { Grupos2Service } from './grupos2.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2';
@@ -13,6 +14,8 @@ import { stringify } from 'querystring';
 export class Form3Component implements OnInit {
   public User: User = new User();
   public errores: string[];
+  public Grupo: Grupo = new Grupo();
+  Grupos: Grupo[];
 
   constructor(
     private grupos2service: Grupos2Service,
@@ -21,6 +24,9 @@ export class Form3Component implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.grupos2service
+    .getGrupos()
+    .subscribe(gruposObsv => (this.Grupos = gruposObsv));
     this.cargarCliente();
   }
 
@@ -50,4 +56,5 @@ export class Form3Component implements OnInit {
       }
     );
   }
+
 }

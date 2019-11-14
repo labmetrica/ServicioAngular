@@ -1,62 +1,72 @@
 <ul class="alert alert-danger" *ngIf="errores?.length > 0">
-    <li *ngFor="let err of errores">
-        {{err}}
-    </li>
-</ul>
-<p> </p>
-<div class="card bg-dark text-white">
-    <div class="card-header" *ngIf="!grupo.id">Crear Grupo </div>
-    <div class="card-header" *ngIf="grupo.id">Editar Grupo </div>
-
-    <div class="card-body">
-
-        <form #grupoForm="ngForm">
-
-            <div class="form-group row">
-                <label for="huecos" class="col-form-label col-sm-2">Huecos</label>
-                <div class="col-sm-6">
-                    <input type="number" class="form-control" [(ngModel)]="grupo.huecos" name="huecos" required
-                        #huecos="ngModel">
-
-                    <div class="alert alert-danger" *ngIf="huecos.invalid">
-                        <div *ngIf="huecos.errors.required"> El numero de huecos es obligatorio</div>
+        <li *ngFor="let err of errores">
+            {{err}}
+        </li>
+    </ul>
+    <p> </p>
+    <div class="card bg-dark text-white">
+        <div class="card-header">Crear Usuario </div>
+    
+        <div class="card-body">
+    
+            <form #userForm="ngForm">
+    
+    
+                <div class="form-group row">
+                    <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="User.nombre" name="nombre" required
+                            #nombre="ngModel" minlength="3">
+    
+                        <div class="alert alert-danger" *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)">
+                            <div *ngIf="nombre.errors.required"> El nombre es obligatorio</div>
+    
+                            <div *ngIf="nombre.errors.minlength"> El nombre debe tener al menos 3 caracteres</div>
+                        </div>
+    
                     </div>
                 </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="nombre" class="col-form-label col-sm-2">Horario</label>
-                <div class="col-sm-6">
-                    <input type="time" class="form-control" [(ngModel)]="grupo.nombre" name="nombre" required
-                         #nombre="ngModel">
-
-                    <div class="alert alert-danger" *ngIf="nombre.invalid">
-                        <div *ngIf="nombre.errors.required"> El horario es obligatorio</div>
-
+    
+                <div class="form-group row">
+                    <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+                    <div class="col-sm-6">
+                        <input type="text" class="form-control" [(ngModel)]="User.apellido" name="apellido" required
+                            minlength="4" #apellido="ngModel">
+    
+                        <div class="alert alert-danger" *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)">
+                            <div *ngIf="apellido.errors.required"> El apellido es obligatorio</div>
+    
+                            <div *ngIf="apellido.errors.minlength"> El apellido debe tener al menos 4 caracteres</div>
+                        </div>
+    
                     </div>
                 </div>
-            
-            </div>
-        
+       
+                    <div class="form-group row">
+                            <label for="nombre" class="col-form-label col-sm-2">Hora de comida</label>
+                            <div class="col-sm-6"> 
+                                    <select type="text" class="form-control" [(ngModel)]="User.grupo" name="grupo" 
+                                    #grupo="ngModel" required>
+                                            <option *ngFor="let grupo of Grupos; let i = index"
+                                            value={{i}}><div *ngIf="i==0 else elseBlock">No listarme</div>
+                                            <ng-template #elseBlock>{{grupo.nombre}}</ng-template>
+                                            </option>
+                                    </select>          
+                            </div>
+                        </div>
 
-            <div class="form-group row">
-                <div class="col-sm-6">
-
-                    <button class="btn btn-primary m-2" role="button" (click)='create()'
-                        *ngIf="!grupo.id else elseBlock" [disabled]="!grupo2Form2.form.valid">
-                        Crear </button>
-
-                    <ng-template #elseBlock>
-                        <button class="btn btn-primary m-2" role="button" (click)='update()'
-                            [disabled]="!grupo2Form2.form.valid"> Editar </button>
-                    </ng-template>
-
-                    <button class="btn btn-outline-light m-2" role="button" routerLink="/grupos2">
-                        Volver </button>
-
+                    <div class="form-group row">
+                    <div class="col-sm-6">
+    
+                        <button class="btn btn-primary m-2" role="button" (click)='create()' [disabled]="!userForm.form.valid">
+                            Crear </button>
+   
+                        <button class="btn btn-outline-light m-2" role="button" routerLink="/grupos2">
+                            Volver </button>
+    
+                    </div>
                 </div>
-            </div>
-        </form>
-
+            </form>
+    
+        </div>
     </div>
-</div>

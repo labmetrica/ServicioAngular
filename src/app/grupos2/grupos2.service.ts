@@ -68,7 +68,7 @@ export class Grupos2Service {
   }
 
   getGrupo(id: number): Observable<Grupo> {
-    return this.http.get<Grupo>(`${this.urlEndPoint}/buscarPorID/${id}`).pipe(
+    return this.http.get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorId/${id}`).pipe(
       catchError(e => {
         this.router.navigate(['/grupos2']);
         console.log(e.error.message);
@@ -107,4 +107,24 @@ export class Grupos2Service {
       })
     );
   }
+
+  createU(user: User): Observable<User> {
+    return this.http
+      .post(`${this.urlEndPoint}/guardarUsuario`, user, {
+        headers: this.httpHeaders
+      })
+      .pipe(
+        map((response: any) => response.user as User),
+        catchError(e => {
+          if (e.status == 400) {
+            return throwError(e);
+          }
+
+          console.log(e.error.message);
+          swal.fire(e.error.message, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
+  }
+
 }

@@ -11,9 +11,7 @@ const routes: Routes = [
 {path: 'subheader', component: SubheaderComponent},
 {path: 'icono-vader', component: IconoVaderComponent},
 { path: 'clientes', component: ClientesComponent },
-{ path: 'login',component: LoginComponent},
-{ path: 'gruposall',component: GruposallComponent}
-
+{ path: 'login',component: LoginComponent}
 ];
 
 @NgModule({

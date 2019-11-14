@@ -22,6 +22,7 @@ export class Grupos2Component implements OnInit {
       .getGrupos()
       .subscribe(gruposObsv => (this.Grupos = gruposObsv));
   }
+  
 
   updateUser(user: User): void {
     swal
@@ -54,5 +55,7 @@ export class Grupos2Component implements OnInit {
         }
       });
   }
+
+
 
 }

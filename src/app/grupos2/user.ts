@@ -1,7 +1,9 @@
 export class User {
     id: number;
+    activo: string;
     nombre: string;
     apellido: string;
-    grupo: number;
     email: string;
+    grupo: number;
+    tipo: string;
   }
