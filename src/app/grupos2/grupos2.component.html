@@ -1,0 +1,47 @@
+<p>&nbsp;&nbsp;</p>
+<div class="content">
+    <app-subheader></app-subheader>
+</div>
+
+<div aling="center" class="text-center" >
+    <div class="card-body text-primary">
+        <div *ngIf="Grupos?.length==0">
+            <div  class="alert alert-info">No hay registros en la base de datos</div>
+        </div>
+        <div class="table-responsive">
+
+        <table class="table table-bordered table-responsive-l" *ngIf="Grupos?.length>0">
+            <tbody>
+                <tr>
+                    <td *ngFor="let grupo of Grupos">
+                            <div *ngIf="grupo.id == 0 && grupo.huecos < 20 || grupo.id == null && grupo.huecos < 12" ><h2>Sin apuntar</h2>
+                                <div *ngFor="let user of grupo.listaUsuarios">
+                                        <div class="text-center">{{ user.nombre }} {{ user.apellido }}<button type="button" name="cambiar" [routerLink]="['/grupos2/form3', user.id]"
+                                            class="btn btn-outline-danger btn-sm">Cambiar</button> 
+                                        </div> 
+                                    </div>
+                            </div>
+                        <div class="first" *ngIf="grupo.id >= 1">
+                            <div><h2>{{ grupo.nombre }}</h2></div>
+                                    <button *ngIf="grupo.huecos >= 1" class="btn btn-success" sng-model="button" [routerLink]="['/grupos2/form2' , grupo.nombre]" >Apuntarme</button>
+                                    <button *ngIf="grupo.huecos == 0" class="btn btn-danger" sng-model="button" disabled>&nbsp;&nbsp;&nbsp; Lleno &nbsp;&nbsp;&nbsp;</button>
+                            <div>&nbsp;&nbsp;</div>
+                                    <div class="progress" style="height: 25px; font-size: 15px; color: white;">
+                                    <div *ngIf="grupo.huecos >= 10" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ grupo.huecos }}</div> 
+                                    <div *ngIf="grupo.huecos > 6 && grupo.huecos <=9" class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 70%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ grupo.huecos }}</div> 
+                                    <div *ngIf="grupo.huecos <= 6 && grupo.huecos >= 1" class="progress-bar progress-bar-striped bg-warning" role="progressbar" style="width: 45%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ grupo.huecos }}</div> 
+                                    <div *ngIf="grupo.huecos <= 0" class="progress-animated-bar progress-bar-striped bg-danger" role="progressbar" style="width: 10%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ grupo.huecos }}</div> 
+                                    </div>  
+                        <div><h2>Participantes:</h2></div>
+                        <div *ngFor="let user of grupo.listaUsuarios">
+                            <div class="text-right">{{ user.nombre }} {{ user.apellido }}<button type="button" name="cambiar" [routerLink]="['/grupos2/form3', user.id]"
+                                class="btn btn-outline-danger btn-sm">Cambiar</button> </div> 
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
