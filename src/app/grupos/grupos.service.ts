@@ -1,21 +1,21 @@
-import { Injectable } from "@angular/core";
-import { Grupo } from "./grupos";
-import { of, Observable, throwError } from "rxjs";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { map, catchError, tap } from "rxjs/operators";
-import swal from "sweetalert2";
-import { Router } from "@angular/router";
-import { GruposComponent } from "./grupos.component.js";
-import { formatDate, DatePipe } from "@angular/common";
+import { Injectable } from '@angular/core';
+import { Grupo } from './grupos';
+import { of, Observable, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, catchError, tap } from 'rxjs/operators';
+import swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { GruposComponent } from './grupos.component.js';
+import { formatDate, DatePipe } from '@angular/common';
 
-import { environment } from "../../environments/environment";
-import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
+import { environment } from '../../environments/environment';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 @Injectable()
 export class GruposService {
-  private urlEndPoint = "http://localhost:8083/grupos";
+  private urlEndPoint = 'http://localhost:8033/serviceMetrica';
 
-  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
+  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -30,7 +30,7 @@ export class GruposService {
 
   create(grupos: Grupo): Observable<Grupo> {
     return this.http
-      .post(`${this.urlEndPoint}/crearGrupo`, grupos, {
+      .post(`${this.urlEndPoint}/guardarGrupo`, grupos, {
         headers: this.httpHeaders
       })
       .pipe(
@@ -41,7 +41,7 @@ export class GruposService {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, "error");
+          swal.fire(e.error.message, e.error.error, 'error');
           return throwError(e);
         })
       );
@@ -60,32 +60,34 @@ export class GruposService {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, "error");
+          swal.fire(e.error.message, e.error.error, 'error');
           return throwError(e);
         })
       );
   }
 
   getGrupo(id: number): Observable<Grupo> {
-    return this.http.get<Grupo>(`${this.urlEndPoint}/buscarPorID/${id}`).pipe(
-      catchError(e => {
-        this.router.navigate(["/grupos"]);
-        console.log(e.error.message);
-        swal.fire("Error al editar", e.error.message, "error");
-        return throwError(e);
-      })
-    );
+    return this.http
+      .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorId/${id}`)
+      .pipe(
+        catchError(e => {
+          this.router.navigate(['/grupos']);
+          console.log(e.error.message);
+          swal.fire('Error al editar', e.error.message, 'error');
+          return throwError(e);
+        })
+      );
   }
 
   delete(id: number): Observable<Grupo> {
     return this.http
-      .delete<Grupo>(`${this.urlEndPoint}/borrarPorId/${id}`, {
+      .delete<Grupo>(`${this.urlEndPoint}/borrarGrupo/${id}`, {
         headers: this.httpHeaders
       })
       .pipe(
         catchError(e => {
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, "error");
+          swal.fire(e.error.message, e.error.error, 'error');
           return throwError(e);
         })
       );
