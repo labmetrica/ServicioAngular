@@ -14,6 +14,9 @@ import { environment } from '../../environments/environment';
 
 @Injectable()
 export class Grupos2Service {
+  getGrup() {
+    throw new Error("Method not implemented.");
+  }
 
   private urlEndPoint = 'http://localhost:8033/serviceMetrica';
 
@@ -67,8 +70,8 @@ export class Grupos2Service {
       );
   }
 
-  getGrupo(id: number): Observable<Grupo> {
-    return this.http.get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorId/${id}`).pipe(
+  getGrupo(nombre: string): Observable<Grupo> {
+    return this.http.get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`).pipe(
       catchError(e => {
         this.router.navigate(['/grupos2']);
         console.log(e.error.message);

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService} from './login.service';
-  import { from } from 'rxjs';
+import { from } from 'rxjs';
+import swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-login',
@@ -13,13 +15,17 @@ export class LoginComponent implements OnInit {
   router: any;
 
   constructor(private http: HttpClient) {
+    
   }
   
   ngOnInit() {
   }
 
   redireccion() {
-    this.router.navigate(['./grupos2/grupos2']);
+    swal.fire(
+      'si'
+    );
+    this.router.navigate(['../grupos2/grupos2.component']);
   }
 
   login(username:string, password:string) {

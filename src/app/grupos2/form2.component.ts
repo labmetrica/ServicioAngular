@@ -23,10 +23,8 @@ export class Form2Component implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    this.grupos2service
-      .getGrupos()
-      .subscribe(gruposObsv => (this.Grupos = gruposObsv));
+  ngOnInit() {
+    this.getGrup();
   }
 
   getGrup(): void {
@@ -35,14 +33,14 @@ export class Form2Component implements OnInit {
       if (id) {
         this.grupos2service
           .getGrupo(id)
-          .subscribe(Grupo => (this.grupoSuelto = Grupo));
+          .subscribe(grupo => (this.grupoSuelto = grupo));
       }
     });
   }
   
   create(): void {
     this.grupos2service.createU(this.User).subscribe(
-      user => {
+      User => {
         this.router.navigate(['/grupos2']);
         swal.fire(
           'El usuario ha sido creado con éxito'
