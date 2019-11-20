@@ -49,10 +49,15 @@
                     </td>
                     <td *ngIf="grupo.id!=0">{{ grupo.nombre }}</td>
                     <td *ngIf="grupo.id!=0">
-                        <div *ngFor="let user of grupo.listaUsuarios">
-                            <div class="text-center">{{ user.nombre }} {{ user.apellido }}</div>
-                            <button type="button" name="cambiar" [routerLink]="['/grupos2/form3', user.id]"
-                                class="btn btn-outline-danger btn-sm">Cambiar</button>
+                        <div>
+                            <select class="form-control">
+                                <option value="{{ user.id }}" *ngFor="let user of grupo.listaUsuarios">
+                                    {{ user.nombre }} {{ user.apellido }}
+                                </option>
+                            </select>
+                            <button type="button" name="cambiar" class="btn btn-outline-danger btn-sm"
+                                [routerLink]="['/grupos2/form3',5]">Cambiar de
+                                turno</button>
                         </div>
                     </td>
 
