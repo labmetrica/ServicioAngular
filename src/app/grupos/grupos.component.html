@@ -1,8 +1,5 @@
 <p>&nbsp;&nbsp;</p>
-<div class="content">
-    <app-subheader></app-subheader>
-</div>
-
+<app-subheader></app-subheader>
 <div aling="center" class="text-center">
     <div class="card-body text-primary">
         <div *ngIf="Grupos?.length==0">
@@ -23,7 +20,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let grupo of Grupos">
-                    <td>
+                    <td *ngIf="grupo.id!=0">
                         <div class="progress" style="height: 25px; font-size: 15px; color: white;">
                             <div *ngIf="grupo.huecos >= 10" class="progress-bar progress-bar-striped bg-success"
                                 role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
@@ -42,10 +39,10 @@
                         </div>
                         <p> sitios libres de 12 en total </p>
                     </td>
-                    <td>{{ grupo.nombre }}</td>
-                    <td> LISTA DE USER </td>
+                    <td *ngIf="grupo.id!=0">{{ grupo.nombre }}</td>
+                    <td *ngIf="grupo.id!=0"> LISTA DE USER </td>
 
-                    <td>
+                    <td *ngIf="grupo.id!=0">
 
                         <button type="button" name="editar" [routerLink]="['/grupos/form1', grupo.id]"
                             class="btn btn-primary btn-sm">Editar</button>&nbsp;&nbsp;
