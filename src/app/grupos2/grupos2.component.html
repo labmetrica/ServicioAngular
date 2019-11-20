@@ -17,9 +17,8 @@
                             <div *ngIf="grupo.id == 0 && grupo.listaUsuarios != null">
                                 <h2>Sin apuntar</h2>
                                 <div *ngFor="let user of grupo.listaUsuarios">
-                                    <div class="text-center">{{ user.nombre }} {{ user.apellido }}<button type="button"
-                                            name="cambiar" [routerLink]="['/grupos2/form3', user.id]"
-                                            class="btn btn-outline-danger btn-sm">Cambiar</button>
+                                    <div class="text-center">
+                                        {{ user.nombre }} {{ user.apellido }}
                                     </div>
                                 </div>
                             </div>
@@ -56,10 +55,8 @@
                                 <div>
                                     <h2>Participantes:</h2>
                                 </div>
-                                <div *ngFor="let user of grupo.listaUsuarios">
-                                    <div class="text-right">{{ user.nombre }} {{ user.apellido }}<button type="button"
-                                            name="cambiar" [routerLink]="['/grupos2/form3', user.id]"
-                                            class="btn btn-outline-danger btn-sm">Cambiar</button> </div>
+                                <div class="text-center" *ngFor="let user of grupo.listaUsuarios">
+                                    {{ user.nombre }} {{ user.apellido }}
                                 </div>
                             </div>
                         </td>
