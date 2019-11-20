@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Grupo } from './grupos';
-import { GruposService } from './grupos.service';
+import { Grupos2Service } from '../grupos2/grupos2.service';
 import swal from 'sweetalert2';
 import { GroupedObservable } from 'rxjs';
 
@@ -11,10 +11,9 @@ import { GroupedObservable } from 'rxjs';
 export class GruposComponent implements OnInit {
   Grupos: Grupo[];
 
-  constructor(private gruposService: GruposService) {}
+  constructor(private gruposService: Grupos2Service) {}
 
   ngOnInit() {
-
     this.gruposService
       .getGrupos()
       .subscribe(gruposObsv => (this.Grupos = gruposObsv));
@@ -49,5 +48,4 @@ export class GruposComponent implements OnInit {
         }
       });
   }
-
 }

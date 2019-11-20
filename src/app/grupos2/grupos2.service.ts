@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, catchError, tap } from 'rxjs/operators';
 import swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import {Grupos2Component} from './grupos2.component'
+import { Grupos2Component } from './grupos2.component';
 import { formatDate, DatePipe } from '@angular/common';
 
 import { environment } from '../../environments/environment';
@@ -15,21 +15,21 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class Grupos2Service {
   getGrup() {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   private urlEndPoint = 'http://localhost:8033/serviceMetrica';
 
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
-  
+
   constructor(private http: HttpClient, private router: Router) {}
 
   getGrupos(): Observable<Grupo[]> {
     return this.http.get(`${this.urlEndPoint}/lista-horarios`).pipe(
       map(response => {
         let grupos = response as Grupo[];
-              return grupos;
-        })
+        return grupos;
+      })
     );
   }
 
@@ -69,20 +69,35 @@ export class Grupos2Service {
         })
       );
   }
+  delete(id: number): Observable<Grupo> {
+    return this.http
+      .delete<Grupo>(`${this.urlEndPoint}/borrarGrupo/${id}`, {
+        headers: this.httpHeaders
+      })
+      .pipe(
+        catchError(e => {
+          console.log(e.error.message);
+          swal.fire(e.error.message, e.error.error, 'error');
+          return throwError(e);
+        })
+      );
+  }
 
   getGrupo(nombre: string): Observable<Grupo> {
-    return this.http.get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`).pipe(
-      catchError(e => {
-        this.router.navigate(['/grupos2']);
-        console.log(e.error.message);
-        swal.fire('Error al editar', e.error.message, 'error');
-        return throwError(e);
-      })
-    );
+    return this.http
+      .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`)
+      .pipe(
+        catchError(e => {
+          this.router.navigate(['/grupos2']);
+          console.log(e.error.message);
+          swal.fire('Error al editar', e.error.message, 'error');
+          return throwError(e);
+        })
+      );
   }
 
   updateUser(user: User): Observable<any> {
-    swal.fire(`${user.grupo} service`)
+    swal.fire(`${user.grupo} service`);
     return this.http
       .put<any>(`${this.urlEndPoint}/actualizarUsuario`, user, {
         headers: this.httpHeaders
@@ -92,7 +107,7 @@ export class Grupos2Service {
           if (e.status == 400) {
             return throwError(e);
           }
-          alert(user.grupo)
+          alert(user.grupo);
           console.log(e.error.message);
           swal.fire(e.error.message, e.error.error, 'error');
           return throwError(e);
@@ -101,14 +116,16 @@ export class Grupos2Service {
   }
 
   getCliente(id: number): Observable<User> {
-    return this.http.get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`).pipe(
-      catchError(e => {
-        this.router.navigate(['/grupo2']);
-        console.log(e.error.message);
-        swal.fire('Error al editar', e.error.message, 'error');
-        return throwError(e);
-      })
-    );
+    return this.http
+      .get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
+      .pipe(
+        catchError(e => {
+          this.router.navigate(['/grupo2']);
+          console.log(e.error.message);
+          swal.fire('Error al editar', e.error.message, 'error');
+          return throwError(e);
+        })
+      );
   }
 
   createU(user: User): Observable<User> {
@@ -129,5 +146,4 @@ export class Grupos2Service {
         })
       );
   }
-
 }
