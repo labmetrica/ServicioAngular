@@ -26,7 +26,10 @@
                                 <div>
                                     <h2>{{ grupo.nombre }}</h2>
                                 </div>
-                                <button *ngIf="grupo.huecos >= 1" class="btn btn-success" sng-model="button"
+                                <button *ngIf="grupo.huecos >= 4" class="btn btn-success" sng-model="button"
+                                    [routerLink]="['/grupos2/form2' , grupo.nombre]">Apuntarme</button>
+                                <button *ngIf="grupo.huecos >= 1 && grupo.huecos <= 3" class="btn btn-warning"
+                                    sng-model="button"
                                     [routerLink]="['/grupos2/form2' , grupo.nombre]">Apuntarme</button>
                                 <button *ngIf="grupo.huecos <= 0" class="btn btn-danger" sng-model="button"
                                     disabled>&nbsp;&nbsp;&nbsp; Lleno &nbsp;&nbsp;&nbsp;</button>
@@ -53,7 +56,10 @@
                                 </div>
                                 <div>&nbsp;&nbsp;</div>
                                 <div>
-                                    <h2>Participantes:</h2>
+                                    <h2 *ngIf="grupo.listaUsuarios.length != 0; else vacio">Participantes:</h2>
+                                    <ng-template #vacio>
+                                        <h2>No hay participantes</h2>
+                                    </ng-template>
                                 </div>
                                 <div class="text-center" *ngFor="let user of grupo.listaUsuarios">
                                     {{ user.nombre }} {{ user.apellido }}
