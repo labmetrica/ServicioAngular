@@ -48,7 +48,7 @@
 
                     <button class="btn btn-primary m-2" role="button" (click)='create()'
                         *ngIf="!grupo.id else elseBlock"
-                        [disabled]="!grupoForm.form.valid || grupo.huecos < 0 || grupo.huecos > 12">
+                        [disabled]="!grupoForm.form.valid || grupo.huecos < 0 || grupo.huecos > 12 || grupo.huecos.pristine">
                         Crear </button>
 
                     <ng-template #elseBlock>
