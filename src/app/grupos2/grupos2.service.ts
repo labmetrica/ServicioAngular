@@ -1,26 +1,26 @@
-import { Injectable } from '@angular/core';
-import { GRUPOS } from './grupos2.json';
-import { Grupo } from './grupos2';
-import { User } from './user';
-import { of, Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
-import swal from 'sweetalert2';
-import { Router } from '@angular/router';
-import { Grupos2Component } from './grupos2.component';
-import { formatDate, DatePipe } from '@angular/common';
+import { Injectable } from "@angular/core";
+import { GRUPOS } from "./grupos2.json";
+import { Grupo } from "./grupos2";
+import { User } from "./user";
+import { of, Observable, throwError } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map, catchError, tap } from "rxjs/operators";
+import swal from "sweetalert2";
+import { Router } from "@angular/router";
+import { Grupos2Component } from "./grupos2.component";
+import { formatDate, DatePipe } from "@angular/common";
 
-import { environment } from '../../environments/environment';
+import { environment } from "../../environments/environment";
 
 @Injectable()
 export class Grupos2Service {
   getGrup() {
-    throw new Error('Method not implemented.');
+    throw new Error("Method not implemented.");
   }
 
-  private urlEndPoint = 'http://localhost:8033/serviceMetrica';
+  private urlEndPoint = environment.apiBaseUrl;
 
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -46,7 +46,7 @@ export class Grupos2Service {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
@@ -64,7 +64,7 @@ export class Grupos2Service {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
@@ -77,7 +77,7 @@ export class Grupos2Service {
       .pipe(
         catchError(e => {
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
@@ -88,9 +88,9 @@ export class Grupos2Service {
       .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`)
       .pipe(
         catchError(e => {
-          this.router.navigate(['/grupos2']);
+          this.router.navigate(["/grupos2"]);
           console.log(e.error.message);
-          swal.fire('Error al editar', e.error.message, 'error');
+          swal.fire("Error al editar", e.error.message, "error");
           return throwError(e);
         })
       );
@@ -109,7 +109,7 @@ export class Grupos2Service {
           }
           alert(user.grupo);
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
@@ -120,9 +120,9 @@ export class Grupos2Service {
       .get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
       .pipe(
         catchError(e => {
-          this.router.navigate(['/grupo2']);
+          this.router.navigate(["/grupo2"]);
           console.log(e.error.message);
-          swal.fire('Error al editar', e.error.message, 'error');
+          swal.fire("Error al editar", e.error.message, "error");
           return throwError(e);
         })
       );
@@ -141,7 +141,7 @@ export class Grupos2Service {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );

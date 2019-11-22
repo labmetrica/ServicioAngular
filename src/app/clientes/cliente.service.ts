@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
-import { Cliente } from './cliente';
-import { of, Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
-import swal from 'sweetalert2';
-import { Router } from '@angular/router';
-import { ClientesComponent } from './clientes.component.js';
-import { formatDate, DatePipe } from '@angular/common';
+import { Injectable } from "@angular/core";
+import { Cliente } from "./cliente";
+import { of, Observable, throwError } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map, catchError, tap } from "rxjs/operators";
+import swal from "sweetalert2";
+import { Router } from "@angular/router";
+import { ClientesComponent } from "./clientes.component.js";
+import { formatDate, DatePipe } from "@angular/common";
+import { environment } from "../../environments/environment";
 
 @Injectable()
 export class ClienteService {
+  private urlEndPoint = environment.apiBaseUrl;
 
-  private urlEndPoint = 'http://localhost:8081/clientes';
-
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -23,7 +23,7 @@ export class ClienteService {
         let clientes = response as Cliente[];
         return clientes.map(cliente => {
           cliente.nombre = cliente.nombre.toUpperCase();
-         return cliente;
+          return cliente;
         });
       })
     );
@@ -42,7 +42,7 @@ export class ClienteService {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
@@ -60,7 +60,7 @@ export class ClienteService {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
@@ -69,9 +69,9 @@ export class ClienteService {
   getCliente(id: number): Observable<Cliente> {
     return this.http.get<Cliente>(`${this.urlEndPoint}/buscarPorID/${id}`).pipe(
       catchError(e => {
-        this.router.navigate(['/clientes']);
+        this.router.navigate(["/clientes"]);
         console.log(e.error.message);
-        swal.fire('Error al editar', e.error.message, 'error');
+        swal.fire("Error al editar", e.error.message, "error");
         return throwError(e);
       })
     );
@@ -85,7 +85,7 @@ export class ClienteService {
       .pipe(
         catchError(e => {
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );

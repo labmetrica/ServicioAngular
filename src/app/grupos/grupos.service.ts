@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
-import { Grupo } from './grupos';
-import { of, Observable, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError, tap } from 'rxjs/operators';
-import swal from 'sweetalert2';
-import { Router } from '@angular/router';
-import { GruposComponent } from './grupos.component.js';
-import { formatDate, DatePipe } from '@angular/common';
+import { Injectable } from "@angular/core";
+import { Grupo } from "./grupos";
+import { of, Observable, throwError } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map, catchError, tap } from "rxjs/operators";
+import swal from "sweetalert2";
+import { Router } from "@angular/router";
+import { GruposComponent } from "./grupos.component.js";
+import { formatDate, DatePipe } from "@angular/common";
 
-import { environment } from '../../environments/environment';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { environment } from "../../environments/environment";
+import { connectableObservableDescriptor } from "rxjs/internal/observable/ConnectableObservable";
 
 @Injectable()
 export class GruposService {
-  private urlEndPoint = 'http://localhost:8033/serviceMetrica';
+  private urlEndPoint = environment.apiBaseUrl;
 
-  private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -41,7 +41,7 @@ export class GruposService {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
@@ -60,7 +60,7 @@ export class GruposService {
           }
 
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
@@ -71,9 +71,9 @@ export class GruposService {
       .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorId/${id}`)
       .pipe(
         catchError(e => {
-          this.router.navigate(['/grupos']);
+          this.router.navigate(["/grupos"]);
           console.log(e.error.message);
-          swal.fire('Error al editar', e.error.message, 'error');
+          swal.fire("Error al editar", e.error.message, "error");
           return throwError(e);
         })
       );
@@ -87,7 +87,7 @@ export class GruposService {
       .pipe(
         catchError(e => {
           console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, 'error');
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
         })
       );
