@@ -22,27 +22,3 @@ export class AppComponent {
     this.servicio.guardarExcel();
   }
 }
-/*
-
-obtenerExcel() {
-  const options = new RequestOptions({
-    responseType: ResponseContentType.Blob
-  });
-
-  return this.http.get(`${this.urlEndPoint}/guardarUsuario`, options);
-}
-}
-  this.servicio.guardarExcel();
-}
-}
-
-this.http
-.get(url)
-.map((response: Response) => {
-  // response.arrayBuffer()   // returns body as an ArrayBuffer
-  // response.blob()          // returns body as a Blob
-  return response.text();
-})
-.subscribe((data: string) => {
-  console.log(data);
-});*/

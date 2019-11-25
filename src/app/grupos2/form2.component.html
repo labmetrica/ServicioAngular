@@ -44,7 +44,7 @@
             <div ng-app="">
 
                 <div class="form-group row">
-                    <label for="grupo" class="col-form-label col-sm-2">Horario 2 </label>
+                    <label for="grupo" class="col-form-label col-sm-2">Turno</label>
                     <div class="col-sm-6">
                         <input type="text" class="form-control" [(ngModel)]="User.grupo" name="grupo" #grupo="ngModel"
                             required>
@@ -71,7 +71,7 @@
 
                     <button class="btn btn-primary m-2" role="button" (click)='create()'
                         [disabled]="!userForm.form.valid">
-                        Crear </button>
+                        Apuntarme </button>
 
                     <button class="btn btn-outline-light m-2" role="button" routerLink="/grupos">
                         Volver </button>
