@@ -9,6 +9,7 @@ import swal from "sweetalert2";
 import { Router } from "@angular/router";
 import { Grupos2Component } from "./grupos2.component";
 import { formatDate, DatePipe } from "@angular/common";
+import { saveAs } from "file-saver";
 
 import { environment } from "../../environments/environment";
 
@@ -142,4 +143,78 @@ export class Grupos2Service {
         })
       );
   }
+
+  guardarExcel(): void {
+    this.http
+      .get(`${this.urlEndPoint}/generarExcel`, {
+        responseType: "arraybuffer"
+      })
+      .pipe(
+        map(response => {
+          const data: Blob = new Blob([response], { type: "EXCEL_TYPE" });
+          saveAs(data, "horarios.xls");
+        })
+      )
+      .subscribe();
+  }
 }
+
+/*  
+    this.pedirExcel.obtenerExcel.subscribe(
+      res => {
+        const blob = new Blob([res.blob()], {
+          type: "application/vnd.ms.excel"
+        });
+        const file = new File([blob], "horario.xlsx", {
+          type: "application/vnd.ms.excel"
+        });
+        saveAs(file);
+      },
+      res => {
+        swal.fire("Error al descargar el excel");
+      }
+    );
+  }
+}
+/*ç
+
+  const data = this.http.get(`${this.urlEndPoint}/guardarUsuario`, {
+      responseType: "blob"
+    });
+    AppComponent.this.fileService.saveAs(data, "horarios.xls");
+  }
+    descarga(): void {
+   this.http
+     .get('http://localhost:8081/colaboradores/descargaExcel', {
+       responseType: 'arraybuffer'
+     })
+     .pipe(
+       map(response => {
+         const data: Blob = new Blob([response], { type: EXCEL_TYPE });
+         FileSaver.saveAs(data, 'horarios.xls');
+       })
+     )
+     .subscribe();
+ }
+
+
+  obtenerExcel:void(){
+    return this.http
+    .get(`${this.urlEndPoint}/serviceMetrica`, {
+      headers: this.httpHeaders
+    })
+  }
+    this.appcoponent.obtenerExcel().subscribe(
+      res => {
+        const blob = new Blob([res.blob()], {
+          type: "application/vnd.ms-excel"
+        });
+        const file = new File([blob], "horario" + ".xlsx", {
+          type: "application/vnd.ms.excel"
+        });
+        saveAs(file);
+      },
+      res => {
+        swal.fire("Error al descargar el excel", "error");
+      }
+    );*/
