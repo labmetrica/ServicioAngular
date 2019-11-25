@@ -27,10 +27,10 @@
                                     <h2>{{ grupo.nombre }}</h2>
                                 </div>
                                 <button *ngIf="grupo.huecos >= 4" class="btn btn-success" sng-model="button"
-                                    [routerLink]="['/grupos2/form2' , grupo.nombre]">Apuntarme</button>
+                                    [routerLink]="['/grupos2/form2' , grupo.nombre]" disabled>Apuntarme</button>
                                 <button *ngIf="grupo.huecos >= 1 && grupo.huecos <= 3" class="btn btn-warning"
-                                    sng-model="button"
-                                    [routerLink]="['/grupos2/form2' , grupo.nombre]">Apuntarme</button>
+                                    sng-model="button" [routerLink]="['/grupos2/form2' , grupo.nombre]"
+                                    disabled>Apuntarme</button>
                                 <button *ngIf="grupo.huecos <= 0" class="btn btn-danger" sng-model="button"
                                     disabled>&nbsp;&nbsp;&nbsp; Lleno &nbsp;&nbsp;&nbsp;</button>
                                 <h4>Huecos Libres:</h4>

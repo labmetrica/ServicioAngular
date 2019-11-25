@@ -66,7 +66,6 @@ const routes: Routes = [
     ClienteService,
     { provide: LOCALE_ID, useValue: "es" },
     GruposService,
-    ,
     Grupos2Service
   ],
   bootstrap: [AppComponent]
