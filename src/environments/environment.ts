@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: "http://localhost:8033//serviceMetrica"
+  apiBaseUrl: "http://192.168.0.24:8096/serviceMetrica"
 };
 
 /*

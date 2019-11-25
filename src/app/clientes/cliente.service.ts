@@ -67,14 +67,16 @@ export class ClienteService {
   }
 
   getCliente(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.urlEndPoint}/buscarPorID/${id}`).pipe(
-      catchError(e => {
-        this.router.navigate(["/clientes"]);
-        console.log(e.error.message);
-        swal.fire("Error al editar", e.error.message, "error");
-        return throwError(e);
-      })
-    );
+    return this.http
+      .get<Cliente>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
+      .pipe(
+        catchError(e => {
+          this.router.navigate(["/clientes"]);
+          console.log(e.error.message);
+          swal.fire("Error al editar", e.error.message, "error");
+          return throwError(e);
+        })
+      );
   }
 
   delete(id: number): Observable<Cliente> {

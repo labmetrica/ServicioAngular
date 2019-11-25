@@ -14,10 +14,6 @@ import { environment } from "../../environments/environment";
 
 @Injectable()
 export class Grupos2Service {
-  getGrup() {
-    throw new Error("Method not implemented.");
-  }
-
   private urlEndPoint = environment.apiBaseUrl;
 
   private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
@@ -35,7 +31,7 @@ export class Grupos2Service {
 
   create(grupos: Grupo): Observable<Grupo> {
     return this.http
-      .post(`${this.urlEndPoint}/crearGrupo`, grupos, {
+      .post(`${this.urlEndPoint}/guardarGrupo`, grupos, {
         headers: this.httpHeaders
       })
       .pipe(
