@@ -21,6 +21,7 @@
                         <th>Contraseña</th>
                         <th>Activo</th>
                         <th>Tipo</th>
+                        <th>Grupo</th>
                         <th>
                             <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/clientes/form']">
                                 Crear Usuario
@@ -35,8 +36,9 @@
                         <td>{{ cliente.apellido | uppercase }}</td>
                         <td>{{ cliente.email }}</td>
                         <td>{{ cliente.contrasenya}}</td>
-                        <td>{{ cliente.activo ? 'Si' : 'No'}}</td>
+                        <td>{{ cliente.activo ? "Si" : "No"}}</td>
                         <td>{{ cliente.tipo }}</td>
+                        <td>{{ cliente.grupo }}</td>
 
                         <td>
                             <button type="button" name="editar" [routerLink]="['/clientes/form', cliente.id]"

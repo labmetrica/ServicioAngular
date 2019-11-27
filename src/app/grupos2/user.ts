@@ -1,6 +1,6 @@
 export class User {
   id: number;
-  activo: string;
+  activo: boolean;
   nombre: string;
   apellido: string;
   contrasenya: string;

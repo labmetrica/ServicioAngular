@@ -70,8 +70,8 @@
                     <select class="form-control" name="activo">
                         <span *ngIf="cargado == true; then IDNoNulo else IDnulo"></span>
                         <ng-template #IDNoNulo>
-                            <option value="true" ng-selected="cliente.activo == true">Si</option>
-                            <option value="false" ng-selected="cliente.activo == false">No</option>
+                            <option value="true">Si</option>
+                            <option value="false" [selected]="cliente.activo == false ? true : false ">No</option>
                         </ng-template>
                         <ng-template #IDnulo>
                             <option value="true">Si</option>
@@ -87,7 +87,7 @@
                     <select class="form-control" name="tipo">
                         <span *ngIf="cargado == true; then EmpNoNulo else Empnulo"></span>
                         <ng-template #EmpNoNulo>
-                            <option value="Empleado" ng-selected="cliente.tipo == Empleado">Empleado</option>
+                            <option value="Empleado">Empleado</option>
                             <option value="LAB" ng-selected="cliente.tipo == LAB">LAB</option>
                         </ng-template>
                         <ng-template #Empnulo>
@@ -104,10 +104,12 @@
                     <select type="text" class="form-control" name="grupo">
                         <span *ngIf="cargado == true; then HorarioNoNulo else HorarioNulo"></span>
                         <ng-template #HorarioNoNulo>
+                            <option value="0" ng-selected="cliente.grupo == 0">No listarme</option>
                             <option value="{{ grupo.id }}" *ngFor="let grupo of grupos"
                                 ng-selected="cliente.grupo == grupo.id">{{grupo.nombre}}</option>
                         </ng-template>
                         <ng-template #HorarioNulo>
+                            <option value="0">No listarme</option>
                             <option value="{{ grupo.id }}" *ngFor="let grupo of grupos">{{grupo.nombre}}</option>
                         </ng-template>
                     </select>

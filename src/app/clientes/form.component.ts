@@ -30,6 +30,7 @@ export class FormComponent implements OnInit {
     this.grupoService
       .getGrupos()
       .subscribe(gruposObsv => (this.grupos = gruposObsv));
+    console.log(this.cliente.nombre);
   }
 
   cargarCliente(): void {

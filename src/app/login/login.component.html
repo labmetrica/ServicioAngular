@@ -1,28 +1,31 @@
 <div class="container">
   <div class="card-body">
     <h1>Iniciar sesión</h1>
-
+    <p>&nbsp;</p>
     <form class="form">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">@</span>
+          <span class="input-group-text" id="basic-addon1"> @</span>
         </div>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+        <input type="text" class="form-control" placeholder="Usuario" aria-label="Username"
           aria-describedby="basic-addon1">
       </div>
 
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">P***</span>
+          <span class="input-group-text" id="basic-addon1">P**</span>
         </div>
-        <input type="password" class="form-control" placeholder="Password" aria-label="Password"
+        <input type="password" class="form-control" placeholder="Contraseña" aria-label="Password"
           aria-describedby="basic-addon1">
       </div>
+      <p>&nbsp;</p>
 
-      <button class="btn btn-outline-info" type="submit" id="login-button" (click)="login('cosa','ca')">Login</button>
-
+      <button class="btn btn-outline-info" type="submit" id="login-button" (click)="login('cosa','ca')">Iniciar
+        Sesion</button>&nbsp;&nbsp;
+      <button class="btn btn-outline-info" type="submit" id="registro-button"
+        routerLink="/clientes/form">Registrarme</button>&nbsp;&nbsp;
+      <button class="btn btn-outline-info" type="submit" id="continuar-button" routerLink="/grupos2">Seguir sin
+        regristrarme</button>
     </form>
   </div>
-  <button class="btn btn-outline-link" type="submit" id="login-button" href="#" routerLink="/grupos2">Seguir sin
-    regristrarme</button>
 </div>
