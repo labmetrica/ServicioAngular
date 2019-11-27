@@ -16,6 +16,7 @@ export class FormComponent implements OnInit {
   public cliente: Cliente = new Cliente();
   public errores: string[];
   grupos: Grupo[];
+  cargado: boolean = false;
 
   constructor(
     private clienteService: ClienteService,
@@ -34,10 +35,13 @@ export class FormComponent implements OnInit {
   cargarCliente(): void {
     this.activatedRoute.params.subscribe(params => {
       const id = params.id;
-      if (id) {
+      if (id != null) {
+        this.cargado = true;
         this.clienteService
           .getCliente(id)
           .subscribe(cliente => (this.cliente = cliente));
+      } else {
+        this.cargado = false;
       }
     });
   }

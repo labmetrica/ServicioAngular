@@ -12,7 +12,6 @@
 
         <form #clienteForm="ngForm">
 
-
             <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
                 <div class="col-sm-6">
@@ -58,12 +57,26 @@
             </div>
 
             <div class="form-group row">
+                <label for="email" class="col-form-label col-sm-2">Constraseña</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="cliente.contrasenya" name="contrasenya"
+                        #contrasenya="ngModel">
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label for="tipo" class="col-form-label col-sm-2">Activo</label>
                 <div class="col-sm-6">
-                    <select type="text" class="form-control" [(ngModel)]="cliente.activo" name="activo"
-                        #activo="ngModel">
-                        <option value="true">Si</option>
-                        <option value="false">No</option>
+                    <select class="form-control" name="activo">
+                        <span *ngIf="cargado == true; then IDNoNulo else IDnulo"></span>
+                        <ng-template #IDNoNulo>
+                            <option value="true" ng-selected="cliente.activo == true">Si</option>
+                            <option value="false" ng-selected="cliente.activo == false">No</option>
+                        </ng-template>
+                        <ng-template #IDnulo>
+                            <option value="true">Si</option>
+                            <option value="false">No</option>
+                        </ng-template>
                     </select>
                 </div>
             </div>
@@ -71,9 +84,16 @@
             <div class="form-group row">
                 <label for="tipo" class="col-form-label col-sm-2">Tipo</label>
                 <div class="col-sm-6">
-                    <select class="form-control" [(ngModel)]="cliente.tipo" name="tipo" #tipo="ngModel">
-                        <option value="Empleado">Empleado</option>
-                        <option value="LAB">LAB</option>
+                    <select class="form-control" name="tipo">
+                        <span *ngIf="cargado == true; then EmpNoNulo else Empnulo"></span>
+                        <ng-template #EmpNoNulo>
+                            <option value="Empleado" ng-selected="cliente.tipo == Empleado">Empleado</option>
+                            <option value="LAB" ng-selected="cliente.tipo == LAB">LAB</option>
+                        </ng-template>
+                        <ng-template #Empnulo>
+                            <option value="Empleado">Empleado</option>
+                            <option value="LAB">LAB</option>
+                        </ng-template>
                     </select>
                 </div>
             </div>
@@ -81,8 +101,15 @@
             <div class="form-group row">
                 <label for="turno" class="col-form-label col-sm-2">Turno</label>
                 <div class="col-sm-6">
-                    <select type="text" class="form-control" [(ngModel)]="cliente.grupo" name="grupo" #grupo="ngModel">
-                        <option value="{{ grupo.id }}" *ngFor="let grupo of grupos"> {{grupo.nombre}}</option>
+                    <select type="text" class="form-control" name="grupo">
+                        <span *ngIf="cargado == true; then HorarioNoNulo else HorarioNulo"></span>
+                        <ng-template #HorarioNoNulo>
+                            <option value="{{ grupo.id }}" *ngFor="let grupo of grupos"
+                                ng-selected="cliente.grupo == grupo.id">{{grupo.nombre}}</option>
+                        </ng-template>
+                        <ng-template #HorarioNulo>
+                            <option value="{{ grupo.id }}" *ngFor="let grupo of grupos">{{grupo.nombre}}</option>
+                        </ng-template>
                     </select>
                 </div>
             </div>

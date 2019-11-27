@@ -3,8 +3,8 @@ export class Cliente {
   activo: string;
   nombre: string;
   apellido: string;
+  contrasenya: string;
   email: string;
   grupo: number;
   tipo: string;
 }
-

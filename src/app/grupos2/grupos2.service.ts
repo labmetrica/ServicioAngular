@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { GRUPOS } from "./grupos2.json";
 import { Grupo } from "./grupos2";
 import { User } from "./user";
 import { of, Observable, throwError } from "rxjs";

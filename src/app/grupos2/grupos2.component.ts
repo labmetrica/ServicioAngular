@@ -5,6 +5,7 @@ import { Grupos2Service } from "./grupos2.service";
 import swal from "sweetalert2";
 import { GroupedObservable } from "rxjs";
 import { SelectControlValueAccessor } from "@angular/forms";
+import { ClienteService } from "../clientes/cliente.service";
 
 @Component({
   selector: "app-grupos2",
@@ -13,14 +14,21 @@ import { SelectControlValueAccessor } from "@angular/forms";
 })
 export class Grupos2Component implements OnInit {
   Grupos: Grupo[];
+  listaUsuarios: User[];
   user: User[];
 
-  constructor(private gruposService: Grupos2Service) {}
+  constructor(
+    private gruposService: Grupos2Service,
+    private clienteService: ClienteService
+  ) {}
 
   ngOnInit() {
     this.gruposService
       .getGrupos()
       .subscribe(gruposObsv => (this.Grupos = gruposObsv));
+    this.clienteService
+      .getClientes()
+      .subscribe(clientesObsv => (this.listaUsuarios = clientesObsv));
   }
 
   updateUser(user: User): void {
