@@ -33,8 +33,20 @@ export class Grupos2Service {
   }
 
   private isAutorizado(e): boolean {
-    if (e.status == 401 || e.status == 403) {
-      this.router.navigate(["/login"]);
+    if (e.status == 401) {
+      this.router.navigate(["/grupos2"]);
+      if (!this.sesion.sesionIniciada()) {
+        this.sesion.logout();
+      }
+      return false;
+    }
+    if (e.status == 403) {
+      swal.fire(
+        "Acceso denegado",
+        `No tienes acceso a este recurso ${this.sesion.usuario.username}`,
+        "warning"
+      );
+      this.router.navigate(["/grupos2"]);
       return false;
     }
     return true;

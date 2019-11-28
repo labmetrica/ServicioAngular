@@ -34,7 +34,10 @@ export class ClienteService {
 
   private isAutorizado(e): boolean {
     if (e.status == 401) {
-      this.router.navigate(["/login"]);
+      this.router.navigate(["/grupos2"]);
+      if (!this.sesion.sesionIniciada()) {
+        this.sesion.logout();
+      }
       return false;
     }
     if (e.status == 403) {
@@ -43,7 +46,7 @@ export class ClienteService {
         `No tienes acceso a este recurso ${this.sesion.usuario.username}`,
         "warning"
       );
-      this.router.navigate(["/login"]);
+      this.router.navigate(["/grupos2"]);
       return false;
     }
     return true;
