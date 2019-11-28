@@ -3,6 +3,8 @@ import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { User } from "../grupos2/user";
+import { Router, ActivatedRoute } from "@angular/router";
+import swal from "sweetalert2";
 
 @Injectable({
   providedIn: "root"
@@ -12,7 +14,7 @@ export class LoginService {
   private _usuario: User;
   private _token: String;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   public get usuario(): User {
     if (this._usuario != null) {
@@ -75,6 +77,14 @@ export class LoginService {
     if (datos != null && datos.user_name && datos.user_name > 0) {
       return true;
     } else return false;
+  }
+
+  logout(): void {
+    this._usuario = null;
+    this._token = null;
+    sessionStorage.clear();
+    swal.fire("Logout", "Has cerrado sesion con éxito", "success");
+    this.router.navigate(["/login"]);
   }
 
   private obtenerDatostoken(access_token: string): any {
