@@ -19,7 +19,16 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if (this.sesion.sesionIniciada()) {
+      swal.fire(
+        "Login",
+        `Hola ${this.sesion.usuario.nombre}, ya estas autentificado`,
+        "info"
+      );
+      this.router.navigate(["/grupos2"]);
+    }
+  }
 
   redireccion() {
     swal.fire("si");
@@ -34,20 +43,27 @@ export class LoginComponent implements OnInit {
       swal.fire("Error de Login", "Usuario o contraseña vacios", "error");
     }
 
-    this.sesion.login(this.usuarioRegistro).subscribe(response => {
-      console.log(response);
+    this.sesion.login(this.usuarioRegistro).subscribe(
+      response => {
+        console.log(response);
 
-      this.sesion.guardarUsuario(response.access_token);
-      this.sesion.guardarToken(response.access_token);
-      let usuario = this.sesion.usuario;
+        this.sesion.guardarUsuario(response.access_token);
+        this.sesion.guardarToken(response.access_token);
+        let usuario = this.sesion.usuario;
 
-      this.router.navigate(["/grupos2"]);
-      //datos.user_name ?
-      swal.fire(
-        "Login",
-        `Hola ${usuario.nombre}, has iniciado sesion con exito!`,
-        "success"
-      );
-    });
+        this.router.navigate(["/grupos2"]);
+        //datos.user_name ?
+        swal.fire(
+          "Login",
+          `Hola ${usuario.nombre}, has iniciado sesion con exito!`,
+          "success"
+        );
+      },
+      err => {
+        if ((err.status = 400)) {
+          swal.fire("Error de Login", "Usuario o clave incorrectas", "error");
+        }
+      }
+    );
   }
 }

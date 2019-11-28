@@ -8,7 +8,7 @@ import { User } from "../grupos2/user";
   providedIn: "root"
 })
 export class LoginService {
-  private urlEndPoint = environment.apiBaseUrl;
+  private urlEndPoint = "http://localhost:8083/oauth/token";
   private _usuario: User;
   private _token: String;
 
@@ -37,7 +37,7 @@ export class LoginService {
   }
 
   login(usuario: User): Observable<any> {
-    const credenciales = btoa("");
+    const credenciales = btoa("angularapp" + ":" + "12345");
     const httpHeaders = new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded",
       Authotization: "Basic " + credenciales
@@ -67,6 +67,13 @@ export class LoginService {
   guardarToken(access_token: string): void {
     this._token = access_token;
     sessionStorage.setItem("token", access_token);
+  }
+
+  sesionIniciada(): boolean {
+    let datos = this.obtenerDatostoken(this.token);
+    if (datos != null && datos.user_name && datos.user_name > 0) {
+      return true;
+    } else return false;
   }
 
   private obtenerDatostoken(access_token: string): any {
