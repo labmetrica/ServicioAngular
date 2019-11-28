@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
 import { Grupos2Component } from "./grupos2.component";
 import { formatDate, DatePipe } from "@angular/common";
 import { saveAs } from "file-saver";
-
+import { LoginService } from "../login/login.service";
 import { environment } from "../../environments/environment";
 
 @Injectable()
@@ -18,7 +18,19 @@ export class Grupos2Service {
 
   private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private sesion: LoginService
+  ) {}
+
+  private agregarAutorizacionHeader() {
+    let token = this.sesion.token;
+    if (token != null) {
+      return this.httpHeaders.append("Authorization", "Bearer" + token);
+    }
+    return this.httpHeaders;
+  }
 
   private isAutorizado(e): boolean {
     if (e.status == 401 || e.status == 403) {
@@ -40,7 +52,7 @@ export class Grupos2Service {
   create(grupos: Grupo): Observable<Grupo> {
     return this.http
       .post(`${this.urlEndPoint}/guardarGrupo`, grupos, {
-        headers: this.httpHeaders
+        headers: this.agregarAutorizacionHeader()
       })
       .pipe(
         map((response: any) => response.grupos as Grupo),
@@ -62,7 +74,7 @@ export class Grupos2Service {
   update(grupos: Grupo): Observable<any> {
     return this.http
       .put<any>(`${this.urlEndPoint}/actualizarGrupo`, grupos, {
-        headers: this.httpHeaders
+        headers: this.agregarAutorizacionHeader()
       })
       .pipe(
         catchError(e => {
@@ -82,7 +94,7 @@ export class Grupos2Service {
   delete(id: number): Observable<Grupo> {
     return this.http
       .delete<Grupo>(`${this.urlEndPoint}/borrarGrupo/${id}`, {
-        headers: this.httpHeaders
+        headers: this.agregarAutorizacionHeader()
       })
       .pipe(
         catchError(e => {
@@ -98,7 +110,9 @@ export class Grupos2Service {
 
   getGrupo(nombre: string): Observable<Grupo> {
     return this.http
-      .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`)
+      .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`, {
+        headers: this.agregarAutorizacionHeader()
+      })
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -116,7 +130,7 @@ export class Grupos2Service {
     swal.fire(`${user.grupo} service`);
     return this.http
       .put<any>(`${this.urlEndPoint}/actualizarUsuario`, user, {
-        headers: this.httpHeaders
+        headers: this.agregarAutorizacionHeader()
       })
       .pipe(
         catchError(e => {
@@ -136,7 +150,9 @@ export class Grupos2Service {
 
   getCliente(id: number): Observable<User> {
     return this.http
-      .get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
+      .get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`, {
+        headers: this.agregarAutorizacionHeader()
+      })
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -153,7 +169,7 @@ export class Grupos2Service {
   createU(user: User): Observable<User> {
     return this.http
       .post(`${this.urlEndPoint}/guardarUsuario`, user, {
-        headers: this.httpHeaders
+        headers: this.agregarAutorizacionHeader()
       })
       .pipe(
         map((response: any) => response.user as User),
