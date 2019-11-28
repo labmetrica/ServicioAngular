@@ -9,7 +9,9 @@ import { ClientesComponent } from "./clientes.component.js";
 import { formatDate, DatePipe } from "@angular/common";
 import { environment } from "../../environments/environment";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class ClienteService {
   private urlEndPoint = environment.apiBaseUrl;
 

@@ -7,20 +7,20 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1"> @</span>
         </div>
-        <input type="text" class="form-control" placeholder="Usuario" aria-label="Username"
-          aria-describedby="basic-addon1" id="usuario" autofocus required>
+        <input type="text" class="form-control" placeholder="Usuario" id="usuario" [(ngModel)]="usuarioRegistro.nombre"
+          name="nombre" #nombre="ngModel" autofocus required>
       </div>
 
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="basic-addon1">P**</span>
         </div>
-        <input type="password" class="form-control" placeholder="Contraseña" aria-label="Password" id="password"
-          aria-describedby="basic-addon1" required>
+        <input type="password" class="form-control" placeholder="Contraseña" [(ngModel)]="usuarioRegistro.contrasenya"
+          name="constrasenya" #constrasenya="ngModel" required>
       </div>
       <p>&nbsp;</p>
 
-      <button class="btn btn-outline-info" type="submit" id="login-button" (click)="login('cosa','ca')">Iniciar
+      <button class="btn btn-outline-info" type="submit" id="login-button" (click)="login()">Iniciar
         Sesion</button>&nbsp;&nbsp;
       <button class="btn btn-outline-info" type="submit" id="registro-button"
         routerLink="/clientes/form">Registrarme</button>&nbsp;&nbsp;

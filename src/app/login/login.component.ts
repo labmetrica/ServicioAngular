@@ -4,6 +4,7 @@ import { Router, ActivatedRoute } from "@angular/router";
 import { from } from "rxjs";
 import swal from "sweetalert2";
 import { User } from "../grupos2/user";
+import { LoginService } from "./login.service";
 
 @Component({
   selector: "app-login",
@@ -12,8 +13,8 @@ import { User } from "../grupos2/user";
 })
 export class LoginComponent implements OnInit {
   router: any;
-  usuario: User = new User();
-  constructor(private http: HttpClient) {}
+  usuarioRegistro: User = new User();
+  constructor(private http: HttpClient, private sesion: LoginService) {}
 
   ngOnInit() {}
 
@@ -22,17 +23,31 @@ export class LoginComponent implements OnInit {
     this.router.navigate(["../grupos2/grupos2.component"]);
   }
 
-  login(username: string, password: string) {
-    if (this.usuario.contrasenya == null || this.usuario.nombre == null) {
+  login() {
+    if (
+      this.usuarioRegistro.contrasenya == null ||
+      this.usuarioRegistro.nombre == null
+    ) {
       swal.fire("Error de Login", "Usuario o contraseña vacios", "error");
     }
-    return this.http.post(
+
+    this.sesion.login(this.usuarioRegistro).subscribe(response => {
+      console.log(response);
+      console.log(response.access_token.split("."));
+      this.router.navigate(["/grupos2"]);
+      swal.fire(
+        "Login",
+        `Hola ${response.nombre}, has iniciado sesion con exito!`,
+        "success"
+      );
+    });
+    /*return this.http.post(
       "https://reqres.in/api/login",
       {
-        email: username,
-        password: password
+        email: this.usuario.nombre,
+        password: this.usuario.contrasenya
       },
       this.router.navigate(["/grupos"])
-    );
+    );*/
   }
 }
