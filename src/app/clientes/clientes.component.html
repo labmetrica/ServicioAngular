@@ -16,6 +16,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
+                        <th>Nombre de usuario</th>
                         <th>Apellido</th>
                         <th>Email</th>
                         <th>Contraseña</th>
@@ -33,9 +34,10 @@
                     <tr *ngFor="let cliente of clientes">
                         <td>{{ cliente.id }}</td>
                         <td>{{ cliente.nombre | uppercase }}</td>
+                        <td>{{ cliente.username }}</td>
                         <td>{{ cliente.apellido | uppercase }}</td>
                         <td>{{ cliente.email }}</td>
-                        <td>{{ cliente.contrasenya}}</td>
+                        <td>{{ cliente.password}}</td>
                         <td>{{ cliente.activo ? "Si" : "No"}}</td>
                         <td>{{ cliente.tipo }}</td>
                         <td>{{ cliente.grupo }}</td>

@@ -2,8 +2,9 @@ export class User {
   id: number;
   activo: boolean;
   nombre: string;
+  username: string;
   apellido: string;
-  contrasenya: string;
+  password: string;
   email: string;
   grupo: number;
   tipo: string;

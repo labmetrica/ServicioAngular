@@ -43,8 +43,8 @@ export class LoginService {
       Authotization: "Basic " + credenciales
     });
     let params = new URLSearchParams();
-    params.set("username", usuario.nombre);
-    params.set("password", usuario.contrasenya);
+    params.set("username", usuario.username);
+    params.set("password", usuario.password);
 
     return this.http.post<any>(this.urlEndPoint, params.toString(), {
       headers: httpHeaders
@@ -55,9 +55,10 @@ export class LoginService {
     let datos = this.obtenerDatostoken(access_token);
     this._usuario.id = datos.id;
     this._usuario.activo = datos.activo;
-    this._usuario.nombre = datos.nombre; //datos.user_name ?
+    this._usuario.nombre = datos.nombre;
+    this._usuario.username = datos.user_name; //datos.user_name ?
     this._usuario.apellido = datos.apellido;
-    this._usuario.contrasenya = datos.contrasenya;
+    this._usuario.password = datos.password;
     this._usuario.email = datos.email;
     this._usuario.grupo = datos.grupo;
     this._usuario.tipo = datos.tipo;
