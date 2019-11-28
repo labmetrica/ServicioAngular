@@ -12,9 +12,12 @@ import { LoginService } from "./login.service";
   styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-  router: any;
   usuarioRegistro: User = new User();
-  constructor(private http: HttpClient, private sesion: LoginService) {}
+  constructor(
+    private http: HttpClient,
+    private sesion: LoginService,
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -33,21 +36,18 @@ export class LoginComponent implements OnInit {
 
     this.sesion.login(this.usuarioRegistro).subscribe(response => {
       console.log(response);
-      console.log(response.access_token.split("."));
+
+      this.sesion.guardarUsuario(response.access_token);
+      this.sesion.guardarToken(response.access_token);
+      let usuario = this.sesion.usuario;
+
       this.router.navigate(["/grupos2"]);
+      //datos.user_name ?
       swal.fire(
         "Login",
-        `Hola ${response.nombre}, has iniciado sesion con exito!`,
+        `Hola ${usuario.nombre}, has iniciado sesion con exito!`,
         "success"
       );
     });
-    /*return this.http.post(
-      "https://reqres.in/api/login",
-      {
-        email: this.usuario.nombre,
-        password: this.usuario.contrasenya
-      },
-      this.router.navigate(["/grupos"])
-    );*/
   }
 }
