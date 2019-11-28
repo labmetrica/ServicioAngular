@@ -53,13 +53,13 @@
                     <td *ngIf="grupo.id!=0">{{ grupo.nombre }}</td>
                     <td *ngIf="grupo.id!=0">
                         <div *ngIf="grupo.listaUsuarios.length != 0; else vacio">
-                            <select class="form-control" name="select{{grupo.id}}">
+                            <select class="form-control" id="select{{grupo.id}}">
                                 <option value="{{ user.id }}" *ngFor="let user of grupo.listaUsuarios">
                                     {{ user.nombre }} {{ user.apellido }}
                                 </option>
                             </select>
                             <button type="button" name="cambiar" class="btn btn-outline-danger btn-sm"
-                                [routerLink]="['/grupos2/form3',5]" disabled>Cambiar de
+                                (click)="crearRuta(grupo.id)">Cambiar de
                                 turno</button>
                         </div>
                         <ng-template #vacio class="vacio">No hay usuarios en este grupo</ng-template>

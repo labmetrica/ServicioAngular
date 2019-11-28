@@ -3,6 +3,7 @@ import { Grupo } from "./grupos";
 import { Grupos2Service } from "../grupos2/grupos2.service";
 import swal from "sweetalert2";
 import { GroupedObservable } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-grupos",
@@ -11,13 +12,22 @@ import { GroupedObservable } from "rxjs";
 })
 export class GruposComponent implements OnInit {
   Grupos: Grupo[];
+  nombreRuta: String = "/grupos2/form3";
 
-  constructor(private gruposService: Grupos2Service) {}
+  constructor(private gruposService: Grupos2Service, private router: Router) {}
 
   ngOnInit() {
     this.gruposService
       .getGrupos()
       .subscribe(gruposObsv => (this.Grupos = gruposObsv));
+  }
+
+  crearRuta(idGrupo: number) {
+    var usuarioSeleccionado: number = document.getElementById(
+      `select${idGrupo}`
+    ).value;
+    var rutaCompleta: String = `${this.nombreRuta}/${usuarioSeleccionado}`;
+    this.router.navigate([rutaCompleta]);
   }
 
   delete(grupos: Grupo): void {
