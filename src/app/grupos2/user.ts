@@ -7,4 +7,5 @@ export class User {
   email: string;
   grupo: number;
   tipo: string;
+  roles: string[] = [];
 }

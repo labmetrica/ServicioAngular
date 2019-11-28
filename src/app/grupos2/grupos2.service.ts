@@ -20,6 +20,14 @@ export class Grupos2Service {
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  private isAutorizado(e): boolean {
+    if (e.status == 401 || e.status == 403) {
+      this.router.navigate(["/login"]);
+      return false;
+    }
+    return true;
+  }
+
   getGrupos(): Observable<Grupo[]> {
     return this.http.get(`${this.urlEndPoint}/lista-horarios`).pipe(
       map(response => {
@@ -37,6 +45,9 @@ export class Grupos2Service {
       .pipe(
         map((response: any) => response.grupos as Grupo),
         catchError(e => {
+          if (!this.isAutorizado(e)) {
+            return throwError(e);
+          }
           if (e.status == 400) {
             return throwError(e);
           }
@@ -55,6 +66,9 @@ export class Grupos2Service {
       })
       .pipe(
         catchError(e => {
+          if (!this.isAutorizado(e)) {
+            return throwError(e);
+          }
           if (e.status == 400) {
             return throwError(e);
           }
@@ -72,6 +86,9 @@ export class Grupos2Service {
       })
       .pipe(
         catchError(e => {
+          if (!this.isAutorizado(e)) {
+            return throwError(e);
+          }
           console.log(e.error.message);
           swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
@@ -84,6 +101,9 @@ export class Grupos2Service {
       .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`)
       .pipe(
         catchError(e => {
+          if (!this.isAutorizado(e)) {
+            return throwError(e);
+          }
           this.router.navigate(["/grupos2"]);
           console.log(e.error.message);
           swal.fire("Error al editar", e.error.message, "error");
@@ -100,6 +120,9 @@ export class Grupos2Service {
       })
       .pipe(
         catchError(e => {
+          if (!this.isAutorizado(e)) {
+            return throwError(e);
+          }
           if (e.status == 400) {
             return throwError(e);
           }
@@ -116,6 +139,9 @@ export class Grupos2Service {
       .get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
       .pipe(
         catchError(e => {
+          if (!this.isAutorizado(e)) {
+            return throwError(e);
+          }
           this.router.navigate(["/grupo2"]);
           console.log(e.error.message);
           swal.fire("Error al editar", e.error.message, "error");
@@ -132,6 +158,9 @@ export class Grupos2Service {
       .pipe(
         map((response: any) => response.user as User),
         catchError(e => {
+          if (!this.isAutorizado(e)) {
+            return throwError(e);
+          }
           if (e.status == 400) {
             return throwError(e);
           }
