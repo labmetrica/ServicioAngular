@@ -68,15 +68,16 @@
                 <label for="tipo" class="col-form-label col-sm-2">Activo</label>
                 <div class="col-sm-6">
                     <select class="form-control" name="activo">
-                        <span *ngIf="cargado == true; then IDNoNulo else IDnulo"></span>
-                        <ng-template #IDNoNulo>
-                            <option value="true">Si</option>
-                            <option value="false" [selected]="cliente.activo == false ? true : false ">No</option>
-                        </ng-template>
+                        <span *ngIf="!cliente.id; then IDnulo else IDNoNulo"></span>
                         <ng-template #IDnulo>
                             <option value="true">Si</option>
                             <option value="false">No</option>
                         </ng-template>
+                        <ng-template #IDNoNulo>
+                            <option value="true" [selected]="cliente.activo == true">Si</option>
+                            <option value="false" [selected]="cliente.activo == false">No</option>
+                        </ng-template>
+
                     </select>
                 </div>
             </div>
@@ -85,15 +86,16 @@
                 <label for="tipo" class="col-form-label col-sm-2">Tipo</label>
                 <div class="col-sm-6">
                     <select class="form-control" name="tipo">
-                        <span *ngIf="cargado == true; then EmpNoNulo else Empnulo"></span>
-                        <ng-template #EmpNoNulo>
-                            <option value="Empleado">Empleado</option>
-                            <option value="LAB" ng-selected="cliente.tipo == LAB">LAB</option>
-                        </ng-template>
-                        <ng-template #Empnulo>
+                        <span *ngIf="!cliente.id; then EmpNulo else EmpNoNulo"></span>
+                        <ng-template #EmpNulo>
                             <option value="Empleado">Empleado</option>
                             <option value="LAB">LAB</option>
                         </ng-template>
+                        <ng-template #EmpNoNulo>
+                            <option value="Empleado" [selected]="cliente.tipo == 'Empleado'">Empleado</option>
+                            <option value="LAB" [selected]="cliente.tipo == 'LAB'">LAB</option>
+                        </ng-template>
+
                     </select>
                 </div>
             </div>
@@ -102,15 +104,15 @@
                 <label for="turno" class="col-form-label col-sm-2">Turno</label>
                 <div class="col-sm-6">
                     <select type="text" class="form-control" name="grupo">
-                        <span *ngIf="cargado == true; then HorarioNoNulo else HorarioNulo"></span>
-                        <ng-template #HorarioNoNulo>
-                            <option value="0" ng-selected="cliente.grupo == 0">No listarme</option>
-                            <option value="{{ grupo.id }}" *ngFor="let grupo of grupos"
-                                ng-selected="cliente.grupo == grupo.id">{{grupo.nombre}}</option>
-                        </ng-template>
+                        <span *ngIf="!cliente.id; then HorarioNulo else HorarioNoNulo"></span>
                         <ng-template #HorarioNulo>
                             <option value="0">No listarme</option>
                             <option value="{{ grupo.id }}" *ngFor="let grupo of grupos">{{grupo.nombre}}</option>
+                        </ng-template>
+                        <ng-template #HorarioNoNulo>
+                            <option value="0" [selected]="cliente.grupo == 0 ">No listarme</option>
+                            <option value="{{ grupo.id }}" *ngFor="let grupo of grupos"
+                                [selected]="cliente.grupo == grupo.id">{{grupo.nombre}}</option>
                         </ng-template>
                     </select>
                 </div>

@@ -1,12 +1,12 @@
 .card-body {
-    text-align: center;
+  text-align: center;
 }
 
 .content {
-    display: flex;
-    margin: 32px auto;
-    padding: 0 16px;
-    max-width: 600px;
-    flex-direction: column;
-    align-items: center;
-  }
+  display: flex;
+  margin: 32px auto;
+  padding: 0 16px;
+  max-width: 600px;
+  flex-direction: column;
+  align-items: center;
+}
