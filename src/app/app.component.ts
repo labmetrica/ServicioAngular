@@ -18,6 +18,7 @@ import { LoginService } from "./login/login.service";
 export class AppComponent {
   title = "";
   constructor(private servicio: Grupos2Service, private sesion: LoginService) {}
+
   logout(): void {
     this.sesion.logout();
   }

@@ -33,13 +33,21 @@ export class ClienteService {
   }
 
   private isAutorizado(e): boolean {
-    if (e.status == 401 || e.status == 403) {
+    if (e.status == 401) {
+      this.router.navigate(["/login"]);
+      return false;
+    }
+    if (e.status == 403) {
+      swal.fire(
+        "Acceso denegado",
+        `No tienes acceso a este recurso ${this.sesion.usuario.username}`,
+        "warning"
+      );
       this.router.navigate(["/login"]);
       return false;
     }
     return true;
   }
-
   getClientes(): Observable<Cliente[]> {
     return this.http.get(`${this.urlEndPoint}/lista-clientes`).pipe(
       map(response => {

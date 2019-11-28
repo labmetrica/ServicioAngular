@@ -87,6 +87,13 @@ export class LoginService {
     this.router.navigate(["/login"]);
   }
 
+  tieneRol(rol: string): boolean {
+    if (this.usuario.roles.includes(rol)) {
+      return true;
+    }
+    return false;
+  }
+
   private obtenerDatostoken(access_token: string): any {
     if (access_token == null) {
       return null;
