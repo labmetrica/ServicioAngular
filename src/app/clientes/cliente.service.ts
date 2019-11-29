@@ -1,12 +1,11 @@
 import { Injectable } from "@angular/core";
 import { Cliente } from "./cliente";
-import { of, Observable, throwError } from "rxjs";
+import { Observable, throwError } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map, catchError, tap } from "rxjs/operators";
 import swal from "sweetalert2";
 import { Router } from "@angular/router";
 import { ClientesComponent } from "./clientes.component.js";
-import { formatDate, DatePipe } from "@angular/common";
 import { LoginService } from "../login/login.service";
 import { environment } from "../../environments/environment";
 import { TokenInterceptor } from "../login/interceptor/headers-token.interceptor";
@@ -23,25 +22,6 @@ export class ClienteService {
     private sesion: LoginService
   ) {}
 
-  private isAutorizado(e): boolean {
-    if (e.status == 401) {
-      this.router.navigate(["/grupos2"]);
-      if (!this.sesion.sesionIniciada()) {
-        this.sesion.logout();
-      }
-      return false;
-    }
-    if (e.status == 403) {
-      swal.fire(
-        "Acceso denegado",
-        `No tienes acceso a este recurso ${this.sesion.usuario.username}`,
-        "warning"
-      );
-      this.router.navigate(["/grupos2"]);
-      return false;
-    }
-    return true;
-  }
   getClientes(): Observable<Cliente[]> {
     return this.http.get(`${this.urlEndPoint}/lista-clientes`).pipe(
       map(response => {
@@ -58,9 +38,6 @@ export class ClienteService {
     return this.http.post(`${this.urlEndPoint}/guardarUsuario`, cliente).pipe(
       map((response: any) => response.cliente as Cliente),
       catchError(e => {
-        if (!this.isAutorizado(e)) {
-          return throwError(e);
-        }
         if (e.status == 400) {
           return throwError(e);
         }
@@ -76,13 +53,9 @@ export class ClienteService {
       .put<any>(`${this.urlEndPoint}/actualizarUsuario`, cliente)
       .pipe(
         catchError(e => {
-          if (!this.isAutorizado(e)) {
-            return throwError(e);
-          }
           if (e.status == 400) {
             return throwError(e);
           }
-
           console.log(e.error.message);
           swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
@@ -95,9 +68,6 @@ export class ClienteService {
       .get<Cliente>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
       .pipe(
         catchError(e => {
-          if (!this.isAutorizado(e)) {
-            return throwError(e);
-          }
           this.router.navigate(["/clientes"]);
           console.log(e.error.message);
           swal.fire("Error al editar", e.error.message, "error");
@@ -111,9 +81,6 @@ export class ClienteService {
       .delete<Cliente>(`${this.urlEndPoint}/borrarUsuario/${id}`)
       .pipe(
         catchError(e => {
-          if (!this.isAutorizado(e)) {
-            return throwError(e);
-          }
           console.log(e.error.message);
           swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
