@@ -22,7 +22,8 @@ import { Form1Component } from "./grupos/form1.component";
 import { FormsModule } from "@angular/forms";
 import { SubheaderComponent } from "./subheader/SubheaderComponent";
 import { LoginComponent } from "./login/login.component";
-import { TokenInterceptor } from "./login/interceptor/headers-token.interceptor";
+import { PeticionInterceptor } from "./login/interceptor/peticion.interceptor";
+import { RespuestaInterceptor } from "./login/interceptor/respuesta.interceptor";
 
 registerLocaleData(localeEs, "es");
 
@@ -46,7 +47,8 @@ registerLocaleData(localeEs, "es");
     { provide: LOCALE_ID, useValue: "es" },
     GruposService,
     Grupos2Service,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: PeticionInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: RespuestaInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

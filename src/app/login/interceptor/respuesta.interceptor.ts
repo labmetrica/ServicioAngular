@@ -12,7 +12,7 @@ import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
+export class RespuestaInterceptor implements HttpInterceptor {
   constructor(private sesion: LoginService, private router: Router) {}
   intercept(
     req: HttpRequest<any>,

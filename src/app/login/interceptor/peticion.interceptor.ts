@@ -10,22 +10,32 @@ import { Observable } from "rxjs";
 import { HttpHeaders } from "@angular/common/http";
 
 @Injectable()
-export class TokenInterceptor implements HttpInterceptor {
-  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
-
+export class PeticionInterceptor implements HttpInterceptor {
   constructor(private sesion: LoginService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     let token = this.sesion.token;
+
     if (token != null) {
       const authReq = req.clone({
         headers: req.headers.set("Authorization", "Bearer" + token)
       });
+      if (req.url.includes("generarExcel")) {
+        const excelReq = req.clone({
+          headers: req.headers.set("Content-Type", "application/vnd.ms-excel")
+        });
+        return next.handle(excelReq);
+      }
       return next.handle(authReq);
     }
-
+    if (req.url.includes("generarExcel")) {
+      const excelReq = req.clone({
+        headers: req.headers.set("Content-Type", "application/vnd.ms-excel")
+      });
+      return next.handle(excelReq);
+    }
     return next.handle(req);
   }
 }

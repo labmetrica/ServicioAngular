@@ -10,10 +10,10 @@
       <button type="button" class="btn btn-outline-light btn-lg rounded-right" href="#"
         routerLink="/grupos">Grupos</button>
       <button class="btn btn-lg rounded" disabled> </button>
-      <button type="button" class="btn btn-outline-light btn-lg rounded" (click)="Excel()">Descargar
-        horario</button>
-      <button class="btn btn-lg rounded" disabled> </button>
     </div>
+    <button type="button" class="btn btn-outline-light btn-lg rounded" (click)="Excel()">Descargar
+      horario</button>
+    <button class="btn btn-lg rounded" disabled> </button>
     <button *ngIf="!sesion.sesionIniciada(); else nombreUsuario" type="button"
       class="btn btn-outline-light btn-lg rounded" routerLink="/login">Iniciar Sesion</button>
     <ng-template #nombreUsuario>
