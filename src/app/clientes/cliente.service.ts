@@ -9,6 +9,7 @@ import { ClientesComponent } from "./clientes.component.js";
 import { formatDate, DatePipe } from "@angular/common";
 import { LoginService } from "../login/login.service";
 import { environment } from "../../environments/environment";
+import { TokenInterceptor } from "../login/interceptor/headers-token.interceptor";
 
 @Injectable({
   providedIn: "root"

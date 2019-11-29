@@ -5,7 +5,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./header/header/header.component";
 import { RouterModule, Routes } from "@angular/router";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import localeEs from "@angular/common/locales/es";
 import { registerLocaleData } from "@angular/common";
 import { ClientesComponent } from "./clientes/clientes.component";
@@ -22,6 +22,8 @@ import { Form1Component } from "./grupos/form1.component";
 import { FormsModule } from "@angular/forms";
 import { SubheaderComponent } from "./subheader/SubheaderComponent";
 import { LoginComponent } from "./login/login.component";
+import { TokenInterceptor } from "./login/interceptor/headers-token.interceptor";
+
 registerLocaleData(localeEs, "es");
 
 @NgModule({
@@ -43,7 +45,8 @@ registerLocaleData(localeEs, "es");
     ClienteService,
     { provide: LOCALE_ID, useValue: "es" },
     GruposService,
-    Grupos2Service
+    Grupos2Service,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
