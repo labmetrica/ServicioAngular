@@ -13,23 +13,68 @@ import { RolGuard } from "./login/guards/rol.guard";
 
 const routes: Routes = [
   { path: "", redirectTo: "/grupos2", pathMatch: "full" },
-  { path: "clientes", component: ClientesComponent },
-  { path: "grupos", component: GruposComponent, canActivate: [AuthGuard] },
-  { path: "clientes/form", component: FormComponent },
-  { path: "clientes/form/:id", component: FormComponent },
-  { path: "grupos/form1", component: Form1Component },
-  { path: "grupos/form1/:id", component: Form1Component },
-  { path: "login", component: LoginComponent },
   { path: "grupos2", component: Grupos2Component },
+  { path: "login", component: LoginComponent },
+  {
+    path: "clientes",
+    component: ClientesComponent,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  },
+  {
+    path: "grupos",
+    component: GruposComponent,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  },
+  {
+    path: "clientes/form",
+    component: FormComponent,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  },
+  {
+    path: "clientes/form/:id",
+    component: FormComponent,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  },
+  {
+    path: "grupos/form1",
+    component: Form1Component,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  },
+  {
+    path: "grupos/form1/:id",
+    component: Form1Component,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  },
   {
     path: "grupos2/form2",
     component: Form2Component,
-    canActivate: [AuthGuard, RolGuard],
+    canActivate: [RolGuard],
     data: { rol: "ROLE_ADMIN" }
   },
-  { path: "grupos2/form2/:id", component: Form2Component },
-  { path: "grupos2/form3", component: Form3Component },
-  { path: "grupos2/form3/:id", component: Form3Component }
+  {
+    path: "grupos2/form2/:id",
+    component: Form2Component,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  },
+  {
+    path: "grupos2/form3",
+    component: Form3Component,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  },
+  {
+    path: "grupos2/form3/:id",
+    component: Form3Component,
+    canActivate: [RolGuard],
+    data: { rol: "ROLE_ADMIN" }
+  }
 ];
 
 @NgModule({
