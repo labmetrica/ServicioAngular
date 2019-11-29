@@ -8,7 +8,6 @@ import { Form2Component } from "./grupos2/form2.component";
 import { Form3Component } from "./grupos2/form3.component";
 import { FormComponent } from "./clientes/form.component";
 import { Form1Component } from "./grupos/form1.component";
-import { AuthGuard } from "./login/guards/auth.guard";
 import { RolGuard } from "./login/guards/rol.guard";
 
 const routes: Routes = [

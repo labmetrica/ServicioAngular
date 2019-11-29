@@ -1,0 +1,58 @@
+<div class="card bg-dark text-white">
+    <div class="card-header">Apuntarme</div>
+
+    <div class="card-body">
+
+        <form #grupos2Form3="ngForm">
+
+
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="User.nombre" name="nombre" required
+                        #nombre="ngModel" minlength="3">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="apellido" class="col-form-label col-sm-2">Apellido</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="User.apellido" name="apellido" required
+                        minlength="4" #apellido="ngModel">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="apellido" class="col-form-label col-sm-2">Correo</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="User.correo" name="correo" required
+                        #correo="ngModel">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="nombre" class="col-form-label col-sm-2">Hora de comida</label>
+                <div class="col-sm-6">
+                    <select type="text" class="form-control" [(ngModel)]="User.grupo" name="grupo" #grupo="ngModel">
+                        <option *ngFor="let grupo of Grupos; let i = index" value={{i}}>
+                            <div *ngIf="i==0 else elseBlock">No listarme</div>
+                            <ng-template #>{{grupo.nombre}}</ng-template>
+                        </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+
+                    <button class="btn btn-primary m-2" role="button" (click)='apuntar()'> Apuntarme </button>
+
+                    <button class="btn btn-outline-light m-2" role="button" routerLink="/grupos">
+                        Volver </button>
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
