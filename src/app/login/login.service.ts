@@ -12,7 +12,7 @@ import swal from "sweetalert2";
 export class LoginService {
   private urlEndPoint = "http://localhost:8083/oauth/token";
   private _usuario: User;
-  private _token: String;
+  private _token: string;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -28,7 +28,7 @@ export class LoginService {
     }
     return new User();
   }
-  public get token(): String {
+  public get token(): string {
     if (this._token != null) {
       return this._token;
     } else if (this._token == null && sessionStorage.getItem("token") != null) {
@@ -54,7 +54,7 @@ export class LoginService {
   }
   guardarUsuario(access_token: string): void {
     this._usuario = new User();
-    let datos = this.obtenerDatostoken(access_token);
+    let datos = this.obtenerDatosToken(access_token);
     this._usuario.id = datos.id;
     this._usuario.activo = datos.activo;
     this._usuario.nombre = datos.nombre;
@@ -73,7 +73,7 @@ export class LoginService {
   }
 
   sesionIniciada(): boolean {
-    let datos = this.obtenerDatostoken(this.token);
+    let datos = this.obtenerDatosToken(this.token);
     if (datos != null && datos.user_name && datos.user_name > 0) {
       return true;
     } else return false;
@@ -94,7 +94,7 @@ export class LoginService {
     return false;
   }
 
-  private obtenerDatostoken(access_token: string): any {
+  obtenerDatosToken(access_token: string): any {
     if (access_token == null) {
       return null;
     }

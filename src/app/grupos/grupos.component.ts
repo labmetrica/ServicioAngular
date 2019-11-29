@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 })
 export class GruposComponent implements OnInit {
   Grupos: Grupo[];
-  nombreRuta: String = "/grupos2/form3";
+  nombreRuta: string = "/grupos2/form3";
 
   constructor(private gruposService: Grupos2Service, private router: Router) {}
 
@@ -22,11 +22,11 @@ export class GruposComponent implements OnInit {
       .subscribe(gruposObsv => (this.Grupos = gruposObsv));
   }
 
-  crearRuta(idGrupo: number) {
-    var usuarioSeleccionado: number = document.getElementById(
-      `select${idGrupo}`
-    ).value;
-    var rutaCompleta: String = `${this.nombreRuta}/${usuarioSeleccionado}`;
+  crearRuta(idGrupo: string) {
+    var usuarioSeleccionado: string = (<HTMLSelectElement>(
+      document.getElementById(`select${idGrupo}`)
+    )).value;
+    var rutaCompleta: string = `${this.nombreRuta}/${usuarioSeleccionado}`;
     this.router.navigate([rutaCompleta]);
   }
 

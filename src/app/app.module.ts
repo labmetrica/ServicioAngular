@@ -22,24 +22,7 @@ import { Form1Component } from "./grupos/form1.component";
 import { FormsModule } from "@angular/forms";
 import { SubheaderComponent } from "./subheader/SubheaderComponent";
 import { LoginComponent } from "./login/login.component";
-
 registerLocaleData(localeEs, "es");
-
-const routes: Routes = [
-  { path: "", redirectTo: "/grupos2", pathMatch: "full" },
-  { path: "clientes", component: ClientesComponent },
-  { path: "grupos", component: GruposComponent },
-  { path: "clientes/form", component: FormComponent },
-  { path: "clientes/form/:id", component: FormComponent },
-  { path: "grupos/form1", component: Form1Component },
-  { path: "grupos/form1/:id", component: Form1Component },
-  { path: "login", component: LoginComponent },
-  { path: "grupos2", component: Grupos2Component },
-  { path: "grupos2/form2", component: Form2Component },
-  { path: "grupos2/form2/:id", component: Form2Component },
-  { path: "grupos2/form3", component: Form3Component },
-  { path: "grupos2/form3/:id", component: Form3Component }
-];
 
 @NgModule({
   declarations: [
@@ -55,13 +38,7 @@ const routes: Routes = [
     Form2Component,
     Form3Component
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    RouterModule.forRoot(routes),
-    FormsModule
-  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
     ClienteService,
     { provide: LOCALE_ID, useValue: "es" },

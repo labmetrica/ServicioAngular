@@ -13,6 +13,14 @@
         <form #clienteForm="ngForm">
 
             <div class="form-group row">
+                <label for="email" class="col-form-label col-sm-2">Nombre de usuario</label>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control" [(ngModel)]="cliente.username" name="username"
+                        #username="ngModel">
+                </div>
+            </div>
+
+            <div class="form-group row">
                 <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="cliente.nombre" name="nombre" required
@@ -24,14 +32,6 @@
                         <div *ngIf="nombre.errors.minlength"> El nombre debe tener al menos 3 caracteres</div>
                     </div>
 
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label for="email" class="col-form-label col-sm-2">Nombre de usuario</label>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control" [(ngModel)]="cliente.username" name="username"
-                        #username="ngModel">
                 </div>
             </div>
 
@@ -127,7 +127,7 @@
             </div>
 
             <div class="form-group row">
-                <div class="col-sm-6">
+                <div class="col-sm-6" *ngIf="sesionIniciada()">
 
                     <button class="btn btn-primary m-2" role="button" (click)='create()'
                         *ngIf="!cliente.id else elseBlock" [disabled]="!clienteForm.form.valid">
