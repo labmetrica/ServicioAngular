@@ -5,8 +5,12 @@
 </ul>
 <p> </p>
 <div class="card bg-dark text-white">
-    <div class="card-header" *ngIf="!cliente.id">Crear Usuario </div>
-    <div class="card-header" *ngIf="cliente.id">Editar Usuario </div>
+
+    <h3 class="card-header text-center" *ngIf="!sesion.sesionIniciada(); else conSesion">Registro</h3>
+    <ng-template #conSesion>
+        <h3 class="card-header text-center" *ngIf="!cliente.id">Crear Usuario</h3>
+        <h3 class="card-header text-center" *ngIf="!cliente.id">Editar Usuario</h3>
+    </ng-template>
 
     <div class="card-body">
 
@@ -16,7 +20,13 @@
                 <label for="email" class="col-form-label col-sm-2">Nombre de usuario</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" [(ngModel)]="cliente.username" name="username"
-                        #username="ngModel">
+                        #username="ngModel" minlength="3" required>
+                    <div class="alert alert-danger" *ngIf="username.invalid && (username.dirty || username.touched)">
+                        <div *ngIf="username.errors.required"> El nombre de usuario es obligatorio</div>
+                        <div *ngIf="username.errors.minlength"> El nombre de usuario debe de tener al menos 3
+                            caracteres
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -108,7 +118,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="form-group row" *ngIf="sesion.sesionIniciada()">
                 <label for="turno" class="col-form-label col-sm-2">Turno</label>
                 <div class="col-sm-6">
                     <select type="text" class="form-control" name="grupo">
@@ -126,8 +136,8 @@
                 </div>
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-6" *ngIf="sesionIniciada()">
+            <div class="form-group row" *ngIf="sesion.sesionIniciada(); else sinSesion">
+                <div class="col-sm-6">
 
                     <button class="btn btn-primary m-2" role="button" (click)='create()'
                         *ngIf="!cliente.id else elseBlock" [disabled]="!clienteForm.form.valid">
@@ -143,6 +153,17 @@
 
                 </div>
             </div>
+            <ng-template #sinSesion>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <button class="btn btn-primary m-2" role="button" (click)='create()' *ngIf="!cliente.id"
+                            [disabled]="!clienteForm.form.valid">
+                            Registrarme </button>
+                        <button class="btn btn-outline-light m-2" role="button" routerLink="/login">
+                            Volver </button>
+                    </div>
+                </div>
+            </ng-template>
         </form>
 
     </div>
