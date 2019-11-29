@@ -17,21 +17,11 @@ import { TokenInterceptor } from "../login/interceptor/headers-token.interceptor
 export class ClienteService {
   private urlEndPoint = environment.apiBaseUrl;
 
-  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
-
   constructor(
     private http: HttpClient,
     private router: Router,
     private sesion: LoginService
   ) {}
-
-  private agregarAutorizacionHeader() {
-    let token = this.sesion.token;
-    if (token != null) {
-      return this.httpHeaders.append("Authorization", "Bearer" + token);
-    }
-    return this.httpHeaders;
-  }
 
   private isAutorizado(e): boolean {
     if (e.status == 401) {
@@ -65,31 +55,25 @@ export class ClienteService {
   }
 
   create(cliente: Cliente): Observable<Cliente> {
-    return this.http
-      .post(`${this.urlEndPoint}/guardarUsuario`, cliente, {
-        headers: this.agregarAutorizacionHeader()
-      })
-      .pipe(
-        map((response: any) => response.cliente as Cliente),
-        catchError(e => {
-          if (!this.isAutorizado(e)) {
-            return throwError(e);
-          }
-          if (e.status == 400) {
-            return throwError(e);
-          }
-          console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, "error");
+    return this.http.post(`${this.urlEndPoint}/guardarUsuario`, cliente).pipe(
+      map((response: any) => response.cliente as Cliente),
+      catchError(e => {
+        if (!this.isAutorizado(e)) {
           return throwError(e);
-        })
-      );
+        }
+        if (e.status == 400) {
+          return throwError(e);
+        }
+        console.log(e.error.message);
+        swal.fire(e.error.message, e.error.error, "error");
+        return throwError(e);
+      })
+    );
   }
 
   update(cliente: Cliente): Observable<any> {
     return this.http
-      .put<any>(`${this.urlEndPoint}/actualizarUsuario`, cliente, {
-        headers: this.agregarAutorizacionHeader()
-      })
+      .put<any>(`${this.urlEndPoint}/actualizarUsuario`, cliente)
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -108,9 +92,7 @@ export class ClienteService {
 
   getCliente(id: number): Observable<Cliente> {
     return this.http
-      .get<Cliente>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`, {
-        headers: this.agregarAutorizacionHeader()
-      })
+      .get<Cliente>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -126,9 +108,7 @@ export class ClienteService {
 
   delete(id: number): Observable<Cliente> {
     return this.http
-      .delete<Cliente>(`${this.urlEndPoint}/borrarUsuario/${id}`, {
-        headers: this.agregarAutorizacionHeader()
-      })
+      .delete<Cliente>(`${this.urlEndPoint}/borrarUsuario/${id}`)
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {

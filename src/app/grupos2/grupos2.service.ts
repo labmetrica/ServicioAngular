@@ -16,21 +16,11 @@ import { environment } from "../../environments/environment";
 export class Grupos2Service {
   private urlEndPoint = environment.apiBaseUrl;
 
-  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
-
   constructor(
     private http: HttpClient,
     private router: Router,
     private sesion: LoginService
   ) {}
-
-  private agregarAutorizacionHeader() {
-    let token = this.sesion.token;
-    if (token != null) {
-      return this.httpHeaders.append("Authorization", "Bearer" + token);
-    }
-    return this.httpHeaders;
-  }
 
   private isAutorizado(e): boolean {
     if (e.status == 401) {
@@ -62,32 +52,26 @@ export class Grupos2Service {
   }
 
   create(grupos: Grupo): Observable<Grupo> {
-    return this.http
-      .post(`${this.urlEndPoint}/guardarGrupo`, grupos, {
-        headers: this.agregarAutorizacionHeader()
-      })
-      .pipe(
-        map((response: any) => response.grupos as Grupo),
-        catchError(e => {
-          if (!this.isAutorizado(e)) {
-            return throwError(e);
-          }
-          if (e.status == 400) {
-            return throwError(e);
-          }
-
-          console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, "error");
+    return this.http.post(`${this.urlEndPoint}/guardarGrupo`, grupos).pipe(
+      map((response: any) => response.grupos as Grupo),
+      catchError(e => {
+        if (!this.isAutorizado(e)) {
           return throwError(e);
-        })
-      );
+        }
+        if (e.status == 400) {
+          return throwError(e);
+        }
+
+        console.log(e.error.message);
+        swal.fire(e.error.message, e.error.error, "error");
+        return throwError(e);
+      })
+    );
   }
 
   update(grupos: Grupo): Observable<any> {
     return this.http
-      .put<any>(`${this.urlEndPoint}/actualizarGrupo`, grupos, {
-        headers: this.agregarAutorizacionHeader()
-      })
+      .put<any>(`${this.urlEndPoint}/actualizarGrupo`, grupos)
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -105,9 +89,7 @@ export class Grupos2Service {
   }
   delete(id: number): Observable<Grupo> {
     return this.http
-      .delete<Grupo>(`${this.urlEndPoint}/borrarGrupo/${id}`, {
-        headers: this.agregarAutorizacionHeader()
-      })
+      .delete<Grupo>(`${this.urlEndPoint}/borrarGrupo/${id}`)
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -122,9 +104,7 @@ export class Grupos2Service {
 
   getGrupo(nombre: string): Observable<Grupo> {
     return this.http
-      .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`, {
-        headers: this.agregarAutorizacionHeader()
-      })
+      .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorNombre/${nombre}`)
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -141,9 +121,7 @@ export class Grupos2Service {
   updateUser(user: User): Observable<any> {
     swal.fire(`${user.grupo} service`);
     return this.http
-      .put<any>(`${this.urlEndPoint}/actualizarUsuario`, user, {
-        headers: this.agregarAutorizacionHeader()
-      })
+      .put<any>(`${this.urlEndPoint}/actualizarUsuario`, user)
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -162,9 +140,7 @@ export class Grupos2Service {
 
   getCliente(id: number): Observable<User> {
     return this.http
-      .get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`, {
-        headers: this.agregarAutorizacionHeader()
-      })
+      .get<User>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
       .pipe(
         catchError(e => {
           if (!this.isAutorizado(e)) {
@@ -179,25 +155,21 @@ export class Grupos2Service {
   }
 
   createU(user: User): Observable<User> {
-    return this.http
-      .post(`${this.urlEndPoint}/guardarUsuario`, user, {
-        headers: this.agregarAutorizacionHeader()
-      })
-      .pipe(
-        map((response: any) => response.user as User),
-        catchError(e => {
-          if (!this.isAutorizado(e)) {
-            return throwError(e);
-          }
-          if (e.status == 400) {
-            return throwError(e);
-          }
-
-          console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, "error");
+    return this.http.post(`${this.urlEndPoint}/guardarUsuario`, user).pipe(
+      map((response: any) => response.user as User),
+      catchError(e => {
+        if (!this.isAutorizado(e)) {
           return throwError(e);
-        })
-      );
+        }
+        if (e.status == 400) {
+          return throwError(e);
+        }
+
+        console.log(e.error.message);
+        swal.fire(e.error.message, e.error.error, "error");
+        return throwError(e);
+      })
+    );
   }
 
   guardarExcel(): void {

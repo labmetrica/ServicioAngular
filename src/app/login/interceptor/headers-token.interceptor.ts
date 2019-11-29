@@ -7,9 +7,12 @@ import {
 } from "@angular/common/http";
 import { LoginService } from "../login.service";
 import { Observable } from "rxjs";
+import { HttpHeaders } from "@angular/common/http";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
+  private httpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
+
   constructor(private sesion: LoginService) {}
   intercept(
     req: HttpRequest<any>,
