@@ -15,11 +15,18 @@
                     <tr>
                         <td attr.colspan="{{Grupos.length}}">
                             <h2>Sin apuntar</h2>
-                            <div *ngFor="let usuario of listaUsuarios">
-                                <span class="text-center">
-                                    {{ usuario.nombre }} {{ usuario.apellido }}
-                                </span>
+                            <div *ngIf="listaUsuarios != null; else sinUsuarios">
+                                <div *ngFor="let usuario of listaUsuarios">
+                                    <span class="text-center">
+                                        {{ usuario.nombre }} {{ usuario.apellido }}
+                                    </span>
+                                </div>
                             </div>
+                            <ng-template #sinUsuarios>
+                                <span class="text-center">
+                                    No hay usuarios en la base de datos
+                                </span>
+                            </ng-template>
                         </td>
                     </tr>
                     <tr>

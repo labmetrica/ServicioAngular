@@ -14,7 +14,7 @@ import { RolGuard } from "./login/guards/rol.guard";
 const routes: Routes = [
   { path: "", redirectTo: "/grupos2", pathMatch: "full" },
   { path: "clientes", component: ClientesComponent },
-  { path: "grupos", component: GruposComponent, canActivate: [AuthGuard] },
+  { path: "grupos", component: GruposComponent },
   { path: "clientes/form", component: FormComponent },
   { path: "clientes/form/:id", component: FormComponent },
   { path: "grupos/form1", component: Form1Component },

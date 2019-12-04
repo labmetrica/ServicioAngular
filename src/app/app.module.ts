@@ -44,6 +44,7 @@ registerLocaleData(localeEs, "es");
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
     ClienteService,
+    ClienteService,
     { provide: LOCALE_ID, useValue: "es" },
     GruposService,
     Grupos2Service,
