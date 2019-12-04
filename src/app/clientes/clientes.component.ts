@@ -14,7 +14,7 @@ export class ClientesComponent implements OnInit {
 
   ngOnInit() {
     this.clienteService
-      .getClientes()
+      .getClientesAdmin()
       .subscribe(clientesObsv => (this.clientes = clientesObsv));
   }
 

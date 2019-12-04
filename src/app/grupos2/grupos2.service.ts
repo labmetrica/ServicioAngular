@@ -34,7 +34,7 @@ export class Grupos2Service {
 
   create(grupos: Grupo): Observable<Grupo> {
     return this.http
-      .post(`${this.urlGruposAdminEndpoint}/guardarGrupo`, grupos)
+      .post(`${this.urlGruposAdminEndpoint}/crearGrupo`, grupos)
       .pipe(
         map((response: any) => response.grupos as Grupo),
         catchError(e => {
@@ -76,9 +76,7 @@ export class Grupos2Service {
 
   getGrupo(nombre: string): Observable<Grupo> {
     return this.http
-      .get<Grupo>(
-        `${this.urlGruposAdminEndpoint}/buscarGrupoPorNombre/${nombre}`
-      )
+      .get<Grupo>(`${this.urlGruposAdminEndpoint}/buscarPorNombre/${nombre}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/grupos2"]);
@@ -108,7 +106,7 @@ export class Grupos2Service {
 
   getCliente(id: number): Observable<User> {
     return this.http
-      .get<User>(`${this.urlClienteAdminEndPoint}/buscarUsuarioPorId/${id}`)
+      .get<User>(`${this.urlClienteAdminEndPoint}/buscarPorID/${id}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/grupo2"]);

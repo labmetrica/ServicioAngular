@@ -63,7 +63,7 @@ export class GruposService {
 
   getGrupo(id: number): Observable<Grupo> {
     return this.http
-      .get<Grupo>(`${this.urlGruposAdminEndpoint}/buscarGrupoPorId/${id}`)
+      .get<Grupo>(`${this.urlGruposAdminEndpoint}/buscarPorId/${id}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/grupos"]);

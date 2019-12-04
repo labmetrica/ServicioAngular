@@ -31,6 +31,15 @@ export class ClienteService {
     );
   }
 
+  getClientesAdmin(): Observable<Cliente[]> {
+    return this.http.get(`${this.urlClienteAdminEndPoint}/lista-clientes`).pipe(
+      map(response => {
+        let clientes = response as Cliente[];
+        return clientes;
+      })
+    );
+  }
+
   create(cliente: Cliente): Observable<Cliente> {
     return this.http
       .post(`${this.urlClienteAdminEndPoint}/guardarUsuario`, cliente)
@@ -64,7 +73,7 @@ export class ClienteService {
 
   getCliente(id: number): Observable<Cliente> {
     return this.http
-      .get<Cliente>(`${this.urlClienteAdminEndPoint}/buscarUsuarioPorId/${id}`)
+      .get<Cliente>(`${this.urlClienteAdminEndPoint}/buscarPorID/${id}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/clientes"]);
