@@ -24,6 +24,7 @@ import { SubheaderComponent } from "./subheader/SubheaderComponent";
 import { LoginComponent } from "./login/login.component";
 import { PeticionInterceptor } from "./login/interceptor/peticion.interceptor";
 import { RespuestaInterceptor } from "./login/interceptor/respuesta.interceptor";
+import { LoginService } from "./login/login.service";
 
 registerLocaleData(localeEs, "es");
 
@@ -44,7 +45,7 @@ registerLocaleData(localeEs, "es");
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [
     ClienteService,
-    ClienteService,
+    LoginService,
     { provide: LOCALE_ID, useValue: "es" },
     GruposService,
     Grupos2Service,

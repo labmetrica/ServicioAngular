@@ -6,11 +6,9 @@ import { User } from "../grupos2/user";
 import { Router, ActivatedRoute } from "@angular/router";
 import swal from "sweetalert2";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class LoginService {
-  private urlEndPoint = "http://localhost:8083/oauth/token";
+  private urlEndPoint = environment.apiDireccion + "auth/token";
   private _usuario: User;
   private _token: string;
 
@@ -39,7 +37,7 @@ export class LoginService {
   }
 
   login(usuario: User): Observable<any> {
-    const credenciales = btoa("angularapp" + ":" + "12345");
+    const credenciales = btoa("admin" + ":" + "password");
     const httpHeaders = new HttpHeaders({
       "Content-Type": "application/x-www-form-urlencoded",
       Authotization: "Basic " + credenciales
