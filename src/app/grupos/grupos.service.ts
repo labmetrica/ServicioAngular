@@ -14,6 +14,7 @@ import { connectableObservableDescriptor } from "rxjs/internal/observable/Connec
 @Injectable()
 export class GruposService {
   private urlEndPoint = environment.apiBaseUrl;
+  private urlGruposAdminEndpoint = environment.apGruposUrl;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -27,24 +28,26 @@ export class GruposService {
   }
 
   create(grupos: Grupo): Observable<Grupo> {
-    return this.http.post(`${this.urlEndPoint}/guardarGrupo`, grupos).pipe(
-      map((response: any) => response.grupos as Grupo),
-      catchError(e => {
-        if (e.status == 400) {
-          return throwError(e);
-        }
+    return this.http
+      .post(`${this.urlGruposAdminEndpoint}/guardarGrupo`, grupos)
+      .pipe(
+        map((response: any) => response.grupos as Grupo),
+        catchError(e => {
+          if (e.status == 400) {
+            return throwError(e);
+          }
 
-        console.log(e.error.message);
-        swal.fire(e.error.message, e.error.error, "error");
-        return throwError(e);
-      })
-    );
+          console.log(e.error.message);
+          swal.fire(e.error.message, e.error.error, "error");
+          return throwError(e);
+        })
+      );
   }
 
   update(grupos: Grupo): Observable<any> {
     console.log(grupos);
     return this.http
-      .put<any>(`${this.urlEndPoint}/actualizarGrupo`, grupos)
+      .put<any>(`${this.urlGruposAdminEndpoint}/actualizarGrupo`, grupos)
       .pipe(
         catchError(e => {
           if (e.status == 400) {
@@ -60,7 +63,7 @@ export class GruposService {
 
   getGrupo(id: number): Observable<Grupo> {
     return this.http
-      .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorId/${id}`)
+      .get<Grupo>(`${this.urlGruposAdminEndpoint}/buscarGrupoPorId/${id}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/grupos"]);
@@ -73,7 +76,7 @@ export class GruposService {
 
   delete(id: number): Observable<Grupo> {
     return this.http
-      .delete<Grupo>(`${this.urlEndPoint}/borrarGrupo/${id}`)
+      .delete<Grupo>(`${this.urlGruposAdminEndpoint}/borrarGrupo/${id}`)
       .pipe(
         catchError(e => {
           console.log(e.error.message);

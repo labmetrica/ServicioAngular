@@ -14,6 +14,7 @@ import { environment } from "../../environments/environment";
 })
 export class ClienteService {
   private urlEndPoint = environment.apiBaseUrl;
+  private urlClienteAdminEndPoint = environment.apiClientesUrl;
 
   constructor(
     private http: HttpClient,
@@ -22,6 +23,7 @@ export class ClienteService {
   ) {}
 
   getClientes(): Observable<Cliente[]> {
+    console.log(`${this.urlEndPoint}/lista-clientes`);
     return this.http.get(`${this.urlEndPoint}/lista-clientes`).pipe(
       map(response => {
         let clientes = response as Cliente[];
@@ -34,22 +36,24 @@ export class ClienteService {
   }
 
   create(cliente: Cliente): Observable<Cliente> {
-    return this.http.post(`${this.urlEndPoint}/guardarUsuario`, cliente).pipe(
-      map((response: any) => response.cliente as Cliente),
-      catchError(e => {
-        if (e.status == 400) {
+    return this.http
+      .post(`${this.urlClienteAdminEndPoint}/guardarUsuario`, cliente)
+      .pipe(
+        map((response: any) => response.cliente as Cliente),
+        catchError(e => {
+          if (e.status == 400) {
+            return throwError(e);
+          }
+          console.log(e.error.message);
+          swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);
-        }
-        console.log(e.error.message);
-        swal.fire(e.error.message, e.error.error, "error");
-        return throwError(e);
-      })
-    );
+        })
+      );
   }
 
   update(cliente: Cliente): Observable<any> {
     return this.http
-      .put<any>(`${this.urlEndPoint}/actualizarUsuario`, cliente)
+      .put<any>(`${this.urlClienteAdminEndPoint}/actualizarUsuario`, cliente)
       .pipe(
         catchError(e => {
           if (e.status == 400) {
@@ -64,7 +68,7 @@ export class ClienteService {
 
   getCliente(id: number): Observable<Cliente> {
     return this.http
-      .get<Cliente>(`${this.urlEndPoint}/buscarUsuarioPorId/${id}`)
+      .get<Cliente>(`${this.urlClienteAdminEndPoint}/buscarUsuarioPorId/${id}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/clientes"]);
@@ -77,7 +81,7 @@ export class ClienteService {
 
   delete(id: number): Observable<Cliente> {
     return this.http
-      .delete<Cliente>(`${this.urlEndPoint}/borrarUsuario/${id}`)
+      .delete<Cliente>(`${this.urlClienteAdminEndPoint}/borrarUsuario/${id}`)
       .pipe(
         catchError(e => {
           console.log(e.error.message);
