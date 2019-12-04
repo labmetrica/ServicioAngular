@@ -49,6 +49,9 @@ export class ClienteService {
           if (e.status == 400) {
             return throwError(e);
           }
+          if (!this.sesion.sesionIniciada()) {
+            this.sesion.login(cliente);
+          }
           console.log(e.error.message);
           swal.fire(e.error.message, e.error.error, "error");
           return throwError(e);

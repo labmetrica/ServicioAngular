@@ -29,7 +29,7 @@ export class GruposService {
 
   create(grupos: Grupo): Observable<Grupo> {
     return this.http
-      .post(`${this.urlGruposAdminEndpoint}/guardarGrupo`, grupos)
+      .post(`${this.urlGruposAdminEndpoint}/crearGrupo`, grupos)
       .pipe(
         map((response: any) => response.grupos as Grupo),
         catchError(e => {
