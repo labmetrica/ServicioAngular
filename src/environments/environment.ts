@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiDireccion: "http://192.168.137.93:9035/",
   apiBaseUrl: "http://192.168.137.93:9035/serviceMetrica",
+  apiAuth: "http://192.168.137.93:9095/auth",
   apiClientesUrl: "http://192.168.137.93:9035/clientes",
   apGruposUrl: "http://192.168.137.93:9035/grupos"
 };

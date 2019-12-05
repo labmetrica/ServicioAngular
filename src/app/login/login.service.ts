@@ -1,14 +1,16 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, pipe } from "rxjs";
+import { map, catchError } from "rxjs/operators";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../environments/environment";
 import { User } from "../grupos2/user";
 import { Router, ActivatedRoute } from "@angular/router";
 import swal from "sweetalert2";
+import { Response } from "selenium-webdriver/http";
 
 @Injectable()
 export class LoginService {
-  private urlEndPoint = environment.apiDireccion + "auth/token";
+  private urlEndPoint = environment.apiAuth;
   private _usuario: User;
   private _token: string;
 
@@ -37,19 +39,31 @@ export class LoginService {
   }
 
   login(usuario: User): Observable<any> {
-    const credenciales = btoa("admin" + ":" + "password");
     const httpHeaders = new HttpHeaders({
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authotization: "Basic " + credenciales
+      "Content-Type": "application/json"
     });
-    let params = new URLSearchParams();
-    params.set("username", usuario.username);
-    params.set("password", usuario.password);
-
-    return this.http.post<any>(this.urlEndPoint, params.toString(), {
-      headers: httpHeaders
-    });
+    let enviar = {
+      username: usuario.username,
+      password: usuario.password
+    };
+    return this.http
+      .post<any>(this.urlEndPoint, enviar, {
+        headers: httpHeaders
+      })
+      .pipe(
+        map(response => {
+          console.log(response.headers);
+          const keys = response.headers.keys();
+          console.log(keys);
+          return keys.get("Authorization");
+        }),
+        catchError(err => {
+          console.log(err);
+          return null;
+        })
+      );
   }
+
   guardarUsuario(access_token: string): void {
     this._usuario = new User();
     let datos = this.obtenerDatosToken(access_token);

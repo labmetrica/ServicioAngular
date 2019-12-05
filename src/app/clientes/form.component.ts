@@ -63,6 +63,12 @@ export class FormComponent implements OnInit {
     );
   }
 
+  registro() {
+    let nuevo = this.clienteService.create(this.cliente);
+    if (nuevo != null) {
+      this.sesion.login(this.cliente);
+    }
+  }
   update(): void {
     this.clienteService.update(this.cliente).subscribe(
       json => {

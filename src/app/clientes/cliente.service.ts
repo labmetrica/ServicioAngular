@@ -41,6 +41,7 @@ export class ClienteService {
   }
 
   create(cliente: Cliente): Observable<Cliente> {
+    cliente.roles.push("ROLE_USER");
     return this.http
       .post(`${this.urlClienteAdminEndPoint}/guardarUsuario`, cliente)
       .pipe(
