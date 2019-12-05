@@ -63,7 +63,7 @@ export class GruposService {
 
   getGrupo(id: number): Observable<Grupo> {
     return this.http
-      .get<Grupo>(`${this.urlGruposAdminEndpoint}/buscarPorId/${id}`)
+      .get<Grupo>(`${this.urlEndPoint}/buscarGrupoPorId/${id}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/grupos"]);
@@ -76,7 +76,7 @@ export class GruposService {
 
   delete(id: number): Observable<Grupo> {
     return this.http
-      .delete<Grupo>(`${this.urlGruposAdminEndpoint}/borrarGrupo/${id}`)
+      .delete<Grupo>(`${this.urlEndPoint}/borrarGrupo/${id}`)
       .pipe(
         catchError(e => {
           console.log(e.error.message);

@@ -7,7 +7,6 @@ import { NgIf } from "@angular/common";
 import { stringify } from "querystring";
 import { Grupo } from "../grupos2/grupos2";
 import { Grupos2Service } from "../grupos2/grupos2.service";
-import { LoginService } from "../login/login.service";
 
 @Component({
   selector: "app-form",
@@ -23,8 +22,7 @@ export class FormComponent implements OnInit {
     private clienteService: ClienteService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private grupoService: Grupos2Service,
-    private sesion: LoginService
+    private grupoService: Grupos2Service
   ) {}
 
   ngOnInit() {
@@ -63,12 +61,6 @@ export class FormComponent implements OnInit {
     );
   }
 
-  registro() {
-    let nuevo = this.clienteService.create(this.cliente);
-    if (nuevo != null) {
-      this.sesion.login(this.cliente);
-    }
-  }
   update(): void {
     this.clienteService.update(this.cliente).subscribe(
       json => {

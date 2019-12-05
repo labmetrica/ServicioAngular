@@ -8,7 +8,6 @@ import swal from "sweetalert2";
 import { Router } from "@angular/router";
 import { Grupos2Component } from "./grupos2.component";
 import { saveAs } from "file-saver";
-import { LoginService } from "../login/login.service";
 import { environment } from "../../environments/environment";
 
 @Injectable()
@@ -17,11 +16,7 @@ export class Grupos2Service {
   private urlGruposAdminEndpoint = environment.apGruposUrl;
   private urlClienteAdminEndPoint = environment.apiClientesUrl;
 
-  constructor(
-    private http: HttpClient,
-    private router: Router,
-    private sesion: LoginService
-  ) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   getGrupos(): Observable<Grupo[]> {
     return this.http.get(`${this.urlEndPoint}/lista-horarios`).pipe(
@@ -64,7 +59,7 @@ export class Grupos2Service {
   }
   delete(id: number): Observable<Grupo> {
     return this.http
-      .delete<Grupo>(`${this.urlGruposAdminEndpoint}/borrarGrupo/${id}`)
+      .delete<Grupo>(`${this.urlEndPoint}/borrarGrupo/${id}`)
       .pipe(
         catchError(e => {
           console.log(e.error.message);
@@ -76,7 +71,7 @@ export class Grupos2Service {
 
   getGrupo(nombre: string): Observable<Grupo> {
     return this.http
-      .get<Grupo>(`${this.urlGruposAdminEndpoint}/buscarPorNombre/${nombre}`)
+      .get<Grupo>(`${this.urlEndPoint}/buscarPorNombre/${nombre}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/grupos2"]);
@@ -90,7 +85,7 @@ export class Grupos2Service {
   updateUser(user: User): Observable<any> {
     swal.fire(`${user.grupo} service`);
     return this.http
-      .put<any>(`${this.urlClienteAdminEndPoint}/actualizarUsuario`, user)
+      .put<any>(`${this.urlEndPoint}/actualizarUsuario`, user)
       .pipe(
         catchError(e => {
           if (e.status == 400) {
@@ -106,7 +101,7 @@ export class Grupos2Service {
 
   getCliente(id: number): Observable<User> {
     return this.http
-      .get<User>(`${this.urlClienteAdminEndPoint}/buscarPorID/${id}`)
+      .get<User>(`${this.urlEndPoint}/buscarGrupoPorID/${id}`)
       .pipe(
         catchError(e => {
           this.router.navigate(["/grupo2"]);
@@ -118,19 +113,17 @@ export class Grupos2Service {
   }
 
   createU(user: User): Observable<User> {
-    return this.http
-      .post(`${this.urlClienteAdminEndPoint}/guardarUsuario`, user)
-      .pipe(
-        map((response: any) => response.user as User),
-        catchError(e => {
-          if (e.status == 400) {
-            return throwError(e);
-          }
-          console.log(e.error.message);
-          swal.fire(e.error.message, e.error.error, "error");
+    return this.http.post(`${this.urlEndPoint}/guardarUsuario`, user).pipe(
+      map((response: any) => response.user as User),
+      catchError(e => {
+        if (e.status == 400) {
           return throwError(e);
-        })
-      );
+        }
+        console.log(e.error.message);
+        swal.fire(e.error.message, e.error.error, "error");
+        return throwError(e);
+      })
+    );
   }
 
   guardarExcel(): void {

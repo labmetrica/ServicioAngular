@@ -6,11 +6,8 @@
 <p> </p>
 <div class="card bg-dark text-white">
 
-    <h3 class="card-header text-center" *ngIf="!sesion.sesionIniciada(); else conSesion">Registro</h3>
-    <ng-template #conSesion>
-        <h3 class="card-header text-center" *ngIf="!cliente.id">Crear Usuario</h3>
-        <h3 class="card-header text-center" *ngIf="!cliente.id">Editar Usuario</h3>
-    </ng-template>
+    <h3 class="card-header text-center" *ngIf="!cliente.id">Crear Usuario</h3>
+    <h3 class="card-header text-center" *ngIf="cliente.id">Editar Usuario</h3>
 
     <div class="card-body">
 
@@ -117,53 +114,31 @@
                     </select>
                 </div>
             </div>
-
-            <div class="form-group row" *ngIf="sesion.sesionIniciada()">
+            <div class="form-group row">
                 <label for="turno" class="col-form-label col-sm-2">Turno</label>
                 <div class="col-sm-6">
                     <select type="text" class="form-control" name="grupo">
-                        <span *ngIf="!cliente.id; then HorarioNulo else HorarioNoNulo"></span>
-                        <ng-template #HorarioNulo>
-                            <option value="0">No listarme</option>
-                            <option value="{{ grupo.id }}" *ngFor="let grupo of grupos">{{grupo.nombre}}</option>
-                        </ng-template>
-                        <ng-template #HorarioNoNulo>
-                            <option value="0" [selected]="cliente.grupo == 0 ">No listarme</option>
-                            <option value="{{ grupo.id }}" *ngFor="let grupo of grupos"
-                                [selected]="cliente.grupo == grupo.id">{{grupo.nombre}}</option>
-                        </ng-template>
+                        <option value="0" [selected]="cliente.grupo == 0 ">No listarme</option>
+                        <option value="{{ grupo.id }}" *ngFor="let grupo of grupos"
+                            [selected]="cliente.grupo == grupo.id">{{grupo.nombre}}</option>
                     </select>
                 </div>
             </div>
 
-            <div class="form-group row" *ngIf="sesion.sesionIniciada(); else sinSesion">
-                <div class="col-sm-6">
+            <div class="col-sm-6">
 
-                    <button class="btn btn-primary m-2" role="button" (click)='create()'
-                        *ngIf="!cliente.id else elseBlock" [disabled]="!clienteForm.form.valid">
-                        Crear </button>
+                <button class="btn btn-primary m-2" role="button" (click)='create()' *ngIf="!cliente.id else elseBlock"
+                    [disabled]="!clienteForm.form.valid">
+                    Crear </button>
+                <ng-template #elseBlock>
+                    <button class="btn btn-primary m-2" role="button" (click)='update()'
+                        [disabled]="!clienteForm.form.valid"> Editar </button>
+                </ng-template>
+                <button class="btn btn-outline-light m-2" role="button" routerLink="/clientes">
+                    Volver </button>
 
-                    <ng-template #elseBlock>
-                        <button class="btn btn-primary m-2" role="button" (click)='update()'
-                            [disabled]="!clienteForm.form.valid"> Editar </button>
-                    </ng-template>
-
-                    <button class="btn btn-outline-light m-2" role="button" routerLink="/clientes">
-                        Volver </button>
-
-                </div>
             </div>
-            <ng-template #sinSesion>
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <button class="btn btn-primary m-2" role="button" (click)='registro()'
-                            [disabled]="!clienteForm.form.valid">
-                            Registrarme </button>
-                        <button class="btn btn-outline-light m-2" role="button" routerLink="/login">
-                            Volver </button>
-                    </div>
-                </div>
-            </ng-template>
+
         </form>
 
     </div>
